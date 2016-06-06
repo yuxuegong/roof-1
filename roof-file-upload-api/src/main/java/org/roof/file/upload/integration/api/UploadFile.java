@@ -16,6 +16,8 @@ public interface UploadFile<T> {
 	 */
 	String getFileDirectory();
 	
+	String getFileName();
+	
 	/**
 	 * 
 	 * @return 文件 支持二进制 String File 

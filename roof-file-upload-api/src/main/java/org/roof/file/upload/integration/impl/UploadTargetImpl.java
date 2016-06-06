@@ -2,18 +2,23 @@ package org.roof.file.upload.integration.impl;
 
 import org.roof.file.upload.integration.api.UploadTarget;
 import org.roof.file.upload.integration.api.UploadType;
+import org.springframework.util.Assert;
 
 public class UploadTargetImpl implements UploadTarget{
 	private UploadType uploadType;
 	private String hosts;
 	private String user;
 	private String password;
-	private String port;
+	private int port;
 	
 	
 
-	public UploadTargetImpl(UploadType uploadType, String hosts, String user, String password, String port) {
-		super();
+	public UploadTargetImpl(UploadType uploadType, String hosts, String user, String password, int port) {
+		Assert.notNull(uploadType, "uploadType must not be null");
+		Assert.notNull(hosts, "hosts must not be null");
+		Assert.notNull(user, "user must not be null");
+		Assert.notNull(password, "password must not be null");
+		Assert.notNull(port, "port must not be null");
 		this.uploadType = uploadType;
 		this.hosts = hosts;
 		this.user = user;
@@ -35,7 +40,7 @@ public class UploadTargetImpl implements UploadTarget{
 		this.password = password;
 	}
 
-	public void setPort(String port) {
+	public void setPort(int port) {
 		this.port = port;
 	}
 
@@ -59,7 +64,7 @@ public class UploadTargetImpl implements UploadTarget{
 		return password;
 	}
 
-	public String getPort() {
+	public int getPort() {
 		// TODO Auto-generated method stub
 		return port;
 	}

@@ -26,5 +26,5 @@ public interface UploadTarget {
 	 * 端口
 	 * @return
 	 */
-	String getPort();
+	int getPort();
 }

@@ -33,10 +33,61 @@
 			<version>${spring.integration.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-ftp</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-sftp</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>roof-file-upload-impl</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -19,12 +19,29 @@
 
 	<context:property-placeholder />
 
+	<bean id="injectionApplicationContextListener" class="org.roof.spring.InjectionApplicationContextListener" />
+
+
 	<!-- 定义通道 -->
-	<int:channel id="file-channel"/> 
-	
+	<int:channel id="file-channel" />
 	<bean id="uploadFileService" class="org.roof.file.upload.integration.service.impl.UploadFileServiceImpl">
-		<property name="messageChannel" ref="file-channel"/>
+		<property name="messageChannel" ref="file-channel" />
 	</bean>
 	
+<!-- 	<int-file:inbound-channel-adapter 
+		directory="E:/spring-integration-samples/input" channel="file-channel"> 
+		<int:poller fixed-rate="1000"/> 
+		</int-file:inbound-channel-adapter>  -->
+
+	<int:header-value-router input-channel="file-channel" default-output-channel="sftp-file-channel" header-name="uploadtype">
+		<int:mapping value="sftp" channel="sftp-file-channel" />
+	</int:header-value-router>
+
+	<int:channel id="sftp-file-channel"/>
+	
+	<int:outbound-channel-adapter ref="roofUploadFileSFtp"
+		channel="sftp-file-channel" />
+	<bean id="roofUploadFileSFtp" class="org.roof.file.upload.integration.service.sftp.RoofUploadFileSFtp" ></bean>
+
 
 </beans>

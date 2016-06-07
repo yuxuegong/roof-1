@@ -1,7 +1,5 @@
 package org.roof.file.upload.integration.api;
 
-import org.springframework.integration.file.support.FileExistsMode;
-
 public interface UploadFile<T> {
 	
 	/**
@@ -15,7 +13,10 @@ public interface UploadFile<T> {
 	 * @return 上传目录
 	 */
 	String getFileDirectory();
-	
+	/**
+	 * 文件名
+	 * @return
+	 */
 	String getFileName();
 	
 	/**
@@ -24,6 +25,10 @@ public interface UploadFile<T> {
 	 */
 	T getFile();
 	
-	FileExistsMode getMode();
+	/**
+	 * 操作
+	 * @return
+	 */
+	UploadFileOperate getOperate();
 	 
 }

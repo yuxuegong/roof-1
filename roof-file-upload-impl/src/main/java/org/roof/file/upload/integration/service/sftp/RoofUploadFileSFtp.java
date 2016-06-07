@@ -14,6 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.file.remote.RemoteFileOperations;
+import org.springframework.integration.file.support.FileExistsMode;
 import org.springframework.integration.sftp.session.DefaultSftpSessionFactory;
 import org.springframework.integration.sftp.session.SftpRemoteFileTemplate;
 import org.springframework.messaging.Message;
@@ -42,7 +43,7 @@ public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 			}
 			RemoteFileOperations<?> sftpRemoteFileTemplate = remoteFileOperationmaps.get(createBeanIdByHost(host));
 			
-			sftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), uploadFile.getMode());
+			sftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), FileExistsMode.getForString(uploadFile.getOperate().name()));
 			
 		}
 		

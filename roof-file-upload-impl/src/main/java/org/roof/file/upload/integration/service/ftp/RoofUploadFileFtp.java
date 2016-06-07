@@ -14,6 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.file.remote.RemoteFileOperations;
+import org.springframework.integration.file.support.FileExistsMode;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 import org.springframework.integration.ftp.session.FtpRemoteFileTemplate;
 import org.springframework.messaging.Message;
@@ -41,9 +42,7 @@ public class RoofUploadFileFtp implements MessageHandler,InitializingBean {
 				putRemoteFileOperations(uploadTarget, host);
 			}
 			RemoteFileOperations<?> ftpRemoteFileTemplate = remoteFileOperationmaps.get(createBeanIdByHost(host));
-			
-			ftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), uploadFile.getMode());
-			
+			ftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), FileExistsMode.getForString(uploadFile.getOperate().name()));
 		}
 		
 		

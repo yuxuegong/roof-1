@@ -38,10 +38,12 @@
 	<bean id="injectionApplicationContextListener" class="org.roof.spring.InjectionApplicationContextListener" />
 	<import resource="classpath:spring-db-mybatis.xml" />
 	<import resource="classpath:spring-cache-concurrentMap.xml" />
-	<import resource="classpath:spring-redis.xml" />
-	<import resource="classpath:spring-integration-client.xml" />
-	<import resource="classpath:spring-integration-server.xml" />
+<!-- 	<import resource="classpath:spring-redis.xml" /> -->
+<!-- 	<import resource="classpath:spring-integration-client.xml" /> -->
+<!-- 	<import resource="classpath:spring-integration-server.xml" /> -->
+	<import resource="classpath*:spring-upload-file.xml" />
 	<import resource="classpath:spring-batch.xml" />
 	<import resource="classpath:spring-data.xml" />
+
 	<!-- <import resource="classpath:spring-update-event.xml"/> -->
 </beans>

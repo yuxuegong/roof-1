@@ -12,11 +12,26 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.1.6.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.roof</groupId>
+			<artifactId>roof-file-upload-impl</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.roof</groupId>
+			<artifactId>roof-file-upload-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.roof</groupId>
+			<artifactId>roof-template-hbs-service-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.roof</groupId>
 			<artifactId>roof-node-api</artifactId>

@@ -21,8 +21,6 @@
 					</batch:reader>
 					<batch:writer><!-- 创建一个ItemWriter -->
 						<bean class="org.roof.node.jobs.writer.ChannelPageItemWriter"><!-- ItemWriter 具体实现: 讲读取的分页数据写出到Redis 消息发布通道 -->
-							<property name="outChannel" ref="toDicRedisOutChannel" /><!-- 
-								将channel注入 ,供ItemWriter写出数据 -->
 						</bean>
 					</batch:writer>
 					<batch:processor>

@@ -36,9 +36,9 @@ public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 	public void handleMessage(Message<?> message) throws MessagingException {
 		LOG.debug(message);
 	
-		UploadTarget test = new UploadTargetImpl(UploadType.Sftp, "192.168.159.149", "zz3310969", "3310969", 22,"","");
-		UploadFile<?> testfiel = new UploadFileImpl<Object>(test, "1", message.getPayload(), "test", UploadFileOperate.REPLACE);
-		UploadFile<?> uploadFile = testfiel ;//(UploadFile<?>) message.getHeaders().get("uploadfile");
+		//UploadTarget test = new UploadTargetImpl(UploadType.Sftp, "192.168.159.149", "zz3310969", "3310969", 22,"","");
+		//UploadFile<?> testfiel = new UploadFileImpl<Object>(test, "1", message.getPayload(), "test", UploadFileOperate.REPLACE);
+		UploadFile<?> uploadFile = (UploadFile<?>) message.getHeaders().get("uploadfile");
 		UploadTarget uploadTarget = uploadFile.getTarget();
 		String[] hosts = uploadTarget.getHosts().split(",");
 		for(String host :hosts){

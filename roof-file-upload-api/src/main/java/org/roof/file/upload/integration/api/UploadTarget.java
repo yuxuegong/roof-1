@@ -1,5 +1,8 @@
 package org.roof.file.upload.integration.api;
 
+/**
+ * 服务器配置接口
+ */
 public interface UploadTarget {
 	
 	/**

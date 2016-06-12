@@ -27,4 +27,8 @@ public interface UploadTarget {
 	 * @return
 	 */
 	int getPort();
+
+	String getRemoteDirectory();
+
+	String getRemoteFileSeparator();
 }

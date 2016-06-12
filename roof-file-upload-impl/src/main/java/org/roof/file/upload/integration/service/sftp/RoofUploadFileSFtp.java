@@ -1,11 +1,12 @@
 package org.roof.file.upload.integration.service.sftp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.roof.file.upload.integration.api.UploadFile;
+import org.roof.file.upload.integration.api.UploadFileOperate;
 import org.roof.file.upload.integration.api.UploadTarget;
+import org.roof.file.upload.integration.api.UploadType;
+import org.roof.file.upload.integration.impl.UploadFileImpl;
+import org.roof.file.upload.integration.impl.UploadTargetImpl;
 import org.roof.spring.CurrentSpringContext;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -21,6 +22,9 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 	private static final Logger LOG = Logger.getLogger(RoofUploadFileSFtp.class);
 
@@ -32,9 +36,9 @@ public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 	public void handleMessage(Message<?> message) throws MessagingException {
 		LOG.debug(message);
 	
-		//UploadTarget test = new UploadTargetImpl(UploadType.Sftp, "192.168.159.149", "zz3310969", "3310969", 22);
-		//UploadFile<?> testfiel = new UploadFileImpl<Object>(test, "", message.getPayload(), "test", FileExistsMode.REPLACE);
-		UploadFile<?> uploadFile = (UploadFile<?>) message.getHeaders().get("uploadfile");
+		UploadTarget test = new UploadTargetImpl(UploadType.Sftp, "192.168.159.149", "zz3310969", "3310969", 22,"","");
+		UploadFile<?> testfiel = new UploadFileImpl<Object>(test, "1", message.getPayload(), "test", UploadFileOperate.REPLACE);
+		UploadFile<?> uploadFile = testfiel ;//(UploadFile<?>) message.getHeaders().get("uploadfile");
 		UploadTarget uploadTarget = uploadFile.getTarget();
 		String[] hosts = uploadTarget.getHosts().split(",");
 		for(String host :hosts){
@@ -42,9 +46,14 @@ public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 				putRemoteFileOperations(uploadTarget, host);
 			}
 			RemoteFileOperations<?> sftpRemoteFileTemplate = remoteFileOperationmaps.get(createBeanIdByHost(host));
-			
-			sftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), FileExistsMode.getForString(uploadFile.getOperate().name()));
-			
+			//if(UploadFileOperate.REMOVE.equals(uploadFile.getOperate()))
+
+            UploadFileOperate op = uploadFile.getOperate();
+            switch (op){
+                case REMOVE :sftpRemoteFileTemplate.remove(uploadFile.getFileDirectory()); break;
+                default:sftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), FileExistsMode.getForString(uploadFile.getOperate().name()));
+            }
+
 		}
 		
 		
@@ -66,9 +75,10 @@ public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 
 		templateBuilder.addConstructorArgValue(defaultSftpSessionFactory);
 		
-		Expression directory = new LiteralExpression("/home/zz3310969");
+		Expression directory = new LiteralExpression(uploadTarget.getRemoteDirectory());
 		templateBuilder.addPropertyValue("remoteDirectoryExpression", directory);
-		templateBuilder.addPropertyValue("remoteFileSeparator", "/");
+		templateBuilder.addPropertyValue("remoteFileSeparator", uploadTarget.getRemoteFileSeparator());
+		templateBuilder.addPropertyValue("autoCreateDirectory",true);
 		
 		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) CurrentSpringContext.getCurrentContext();
         BeanDefinitionRegistry beanDefinitonRegistry = (BeanDefinitionRegistry) configurableApplicationContext

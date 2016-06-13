@@ -30,8 +30,20 @@ public interface UploadTarget {
 	 * @return
 	 */
 	int getPort();
-
+	/**
+	 * 固定目录
+	 * @return
+	 */
 	String getRemoteDirectory();
-
+	/**
+	 * 分隔符
+	 * @return
+	 */
 	String getRemoteFileSeparator();
+	/**
+	 * 字符集
+	 * @return
+	 */
+	String getCharset();
+	
 }

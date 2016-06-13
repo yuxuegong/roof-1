@@ -64,9 +64,10 @@ public class RoofUploadFileFtp implements MessageHandler,InitializingBean {
 
 		templateBuilder.addConstructorArgValue(defaultftpSessionFactory);
 		
-		Expression directory = new LiteralExpression("/home/zz3310969");
+		Expression directory = new LiteralExpression(uploadTarget.getRemoteDirectory());
 		templateBuilder.addPropertyValue("remoteDirectoryExpression", directory);
-		templateBuilder.addPropertyValue("remoteFileSeparator", "/");
+		templateBuilder.addPropertyValue("remoteFileSeparator", uploadTarget.getRemoteFileSeparator());
+		templateBuilder.addPropertyValue("autoCreateDirectory",true);
 		
 		ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) CurrentSpringContext.getCurrentContext();
         BeanDefinitionRegistry beanDefinitonRegistry = (BeanDefinitionRegistry) configurableApplicationContext

@@ -4,9 +4,6 @@ import org.apache.log4j.Logger;
 import org.roof.file.upload.integration.api.UploadFile;
 import org.roof.file.upload.integration.api.UploadFileOperate;
 import org.roof.file.upload.integration.api.UploadTarget;
-import org.roof.file.upload.integration.api.UploadType;
-import org.roof.file.upload.integration.impl.UploadFileImpl;
-import org.roof.file.upload.integration.impl.UploadTargetImpl;
 import org.roof.spring.CurrentSpringContext;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -24,7 +21,6 @@ import org.springframework.messaging.MessagingException;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class RoofUploadFileSFtp implements MessageHandler,InitializingBean {
 	private static final Logger LOG = Logger.getLogger(RoofUploadFileSFtp.class);
 

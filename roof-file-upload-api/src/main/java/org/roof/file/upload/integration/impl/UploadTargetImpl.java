@@ -13,10 +13,10 @@ public class UploadTargetImpl implements UploadTarget{
 	private String remoteDirectory;
 	private String remoteFileSeparator ;//linux default /
 
+	private String charset = "UTF-8" ;
 
 
-
-		public UploadTargetImpl(UploadType uploadType, String hosts, String user, String password, int port,String remoteDirectory,String remoteFileSeparator) {
+	public UploadTargetImpl(UploadType uploadType, String hosts, String user, String password, int port,String remoteDirectory,String remoteFileSeparator) {
 		Assert.notNull(uploadType, "uploadType must not be null");
 		Assert.notNull(hosts, "hosts must not be null");
 		Assert.notNull(user, "user must not be null");
@@ -31,6 +31,24 @@ public class UploadTargetImpl implements UploadTarget{
 		this.port = port;
 		this.remoteDirectory = remoteDirectory;
 		this.remoteFileSeparator = remoteFileSeparator;
+	}
+	
+	public UploadTargetImpl(UploadType uploadType, String hosts, String user, String password, int port,String remoteDirectory,String remoteFileSeparator,String charset) {
+		Assert.notNull(uploadType, "uploadType must not be null");
+		Assert.notNull(hosts, "hosts must not be null");
+		Assert.notNull(user, "user must not be null");
+		Assert.notNull(password, "password must not be null");
+		Assert.notNull(port, "port must not be null");
+		Assert.notNull(remoteDirectory, "remoteDirectory must not be null");
+		Assert.notNull(remoteFileSeparator, "remoteDirectory must not be null");
+		this.uploadType = uploadType;
+		this.hosts = hosts;
+		this.user = user;
+		this.password = password;
+		this.port = port;
+		this.remoteDirectory = remoteDirectory;
+		this.remoteFileSeparator = remoteFileSeparator;
+		this.charset = charset;
 	}
 
 
@@ -83,6 +101,13 @@ public class UploadTargetImpl implements UploadTarget{
 
 	public void setHosts(String hosts) {
 		this.hosts = hosts;
+	}
+
+
+
+	@Override
+	public String getCharset() {
+		return this.charset;
 	}
 
 

@@ -17,7 +17,7 @@ public class UploadFileServiceImpl implements UploadFileServiceI{
 	
 	private MessageChannel messageChannel;
 	
-	public void Upload(UploadFile<?> file) {
+	public boolean Upload(UploadFile<?> file) {
 		LOG.debug(file);
 		
 		Map<String, Object> headers = new HashMap<String, Object>();
@@ -28,7 +28,7 @@ public class UploadFileServiceImpl implements UploadFileServiceI{
 		headers.put("file_name", file.getFileName());
 		
 		Message<?> filemessage = new GenericMessage<Object>(filedata,headers);
-		messageChannel.send(filemessage);
+		return messageChannel.send(filemessage);
 	}
 
 	public void setMessageChannel(MessageChannel messageChannel) {

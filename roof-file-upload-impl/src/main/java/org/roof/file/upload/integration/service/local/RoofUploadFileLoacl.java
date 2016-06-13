@@ -5,6 +5,7 @@ import java.nio.file.FileVisitOption;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.roof.file.upload.integration.api.UploadFile;
 import org.roof.file.upload.integration.api.UploadFileOperate;
@@ -36,33 +37,41 @@ import com.alibaba.fastjson.JSON;
 public class RoofUploadFileLoacl implements MessageHandler,InitializingBean {
 	private static final Logger LOG = Logger.getLogger(RoofUploadFileLoacl.class);
 
-	
-	
-	private FileWritingMessageHandler fileWritingMessageHandler;
-
 
 	public void handleMessage(Message<?> message) throws MessagingException {
 		LOG.debug(message);
 	
-		//UploadTarget test = new UploadTargetImpl(UploadType.SFTP, "192.168.159.149", "zz3310969", "3310969", 22,"E:/spring-integration-samples/output","");
+		UploadTarget test = new UploadTargetImpl(UploadType.SFTP, "192.168.159.149", "zz3310969", "3310969", 22,"E:/spring-integration-samples/output","/");
 		//System.out.println(JSON.toJSON(test));;
-		//UploadFile<?> testfiel = new UploadFileImpl<Object>(test, "user/index", message.getPayload(), "test", UploadFileOperate.REPLACE);
-		UploadFile<?> uploadFile = (UploadFile<?>) message.getHeaders().get("uploadfile");
+		UploadFile<?> testfiel = new UploadFileImpl<Object>(test, "", message.getPayload(), "fff.txt", UploadFileOperate.REPLACE);
+		UploadFile<?> uploadFile = testfiel;//(UploadFile<?>) message.getHeaders().get("uploadfile");
 		UploadTarget uploadTarget = uploadFile.getTarget();
-		String[] hosts = uploadTarget.getHosts().split(",");
-		for(String host :hosts){
-			createHandler(uploadTarget, host).handleMessage(message);
-			//ftpRemoteFileTemplate.send(message, uploadFile.getFileDirectory(), FileExistsMode.getForString(uploadFile.getOperate().name()));
+		 UploadFileOperate op = uploadFile.getOperate();
+         switch (op){
+             case REMOVE :removefile(uploadFile); break;
+             default:createHandler(uploadTarget).handleMessage(message);
+         }
+		
+	}
+	
+	protected void removefile(UploadFile<?> uploadFile ) {
+		StringBuffer dir = new StringBuffer();
+		dir.append(uploadFile.getTarget().getRemoteDirectory());
+		dir.append(uploadFile.getTarget().getRemoteFileSeparator());
+		if(StringUtils.isNotBlank(uploadFile.getFileDirectory())){
+			dir.append(uploadFile.getFileDirectory());
+			dir.append(uploadFile.getTarget().getRemoteFileSeparator());
 		}
-		
-		
+		dir.append(uploadFile.getFileName());		
+				
+		new File(dir.toString()).delete();
 	}
 
 	public void afterPropertiesSet() throws Exception {
 		
 	}
 	
-	protected FileWritingMessageHandler createHandler(UploadTarget uploadTarget,String host) {
+	protected FileWritingMessageHandler createHandler(UploadTarget uploadTarget) {
 		final FileWritingMessageHandler handler;
 		
 		handler = new FileWritingMessageHandler(new File(uploadTarget.getRemoteDirectory()));

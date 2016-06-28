@@ -20,6 +20,7 @@ public class CurrentSpringContext {
 	private static ApplicationContext CONTEXT;
 
 	public static ApplicationContext getCurrentContext() {
+		initContext();
 		return CONTEXT;
 	}
 

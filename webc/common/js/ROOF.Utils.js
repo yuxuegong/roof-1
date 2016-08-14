@@ -221,6 +221,7 @@ ROOF.Utils.datepicker=function(objId,dateFormat){
 		changeYear : true,
 		showButtonPanel: true, 
 		closeText: '清除',
+		dateFormat:dateformat,
 		beforeShow: function (input, inst) { 
 			datepicker_CurrentInput = input;
 		} 

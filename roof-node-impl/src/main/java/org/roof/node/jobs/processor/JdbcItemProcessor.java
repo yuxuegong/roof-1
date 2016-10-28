@@ -14,8 +14,7 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemProcessor;
 
-import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Template;
+
 
 public class JdbcItemProcessor implements ItemProcessor<Page, Map> {
 	private StepExecution stepExecution;

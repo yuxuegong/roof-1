@@ -39,7 +39,7 @@ public class ChannelPageItemWriter implements ItemWriter<Map> {
 		String html = "<p>Hello, my name is Alan.Today is . I am from Somewhere, TX. I have  kids:</p><ul><li>1:Jimmy is 12</li><li>2:Sally is 4</li></ul>"
 				+ "<h1>reuse templete</h1>" + "<p>Home page</p>" + "<span>Powered by Handlebars.java</span>";
 
-		UploadTarget target = new UploadTargetImpl(UploadType.Sftp, "10.80.19.204", "root", "zjhcroot", 22, "soft",
+		UploadTarget target = new UploadTargetImpl(UploadType.SFTP, "10.80.19.204", "root", "zjhcroot", 22, "soft",
 				"/");
 
 		UploadFile<?> file = new UploadFileImpl(target, "", html, "xxx.html", UploadFileOperate.REPLACE);

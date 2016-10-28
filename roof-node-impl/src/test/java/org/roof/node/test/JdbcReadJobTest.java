@@ -15,12 +15,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-@ContextConfiguration(locations = { "classpath*:spring-all.xml" })
-
+@ContextConfiguration(locations = { "classpath:spring-all.xml" })
 public class JdbcReadJobTest extends AbstractJUnit4SpringContextTests {
 	private JobOperator jobOperator; // 注入job操作
 	private DataSourceRegister jsonJdbcDataSourceRegister; // 注入JsonJdbc数据源注册C
-	private String config = "{'name': 'letv' , 'url' : 'jdbc:mysql://127.0.0.1:3306/node', 'username' : 'root', 'password' : '123'}";// 数据源配置
+	private String config = "{'name': 'letv' , 'url' : 'jdbc:mysql://127.0.0.1:3306/node', 'username' : 'root', 'password' : '123456zx'}";// 数据源配置
 	private String params = null; // sql执行参数
 
 	@Before

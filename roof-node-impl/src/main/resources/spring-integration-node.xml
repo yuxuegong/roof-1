@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
+	xmlns:int-redis="http://www.springframework.org/schema/integration/redis"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/integration
+   http://www.springframework.org/schema/integration/spring-integration.xsd
+   http://www.springframework.org/schema/integration/twitter
+   http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+   http://www.springframework.org/schema/integration/stream
+   http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+   http://www.springframework.org/schema/integration/jdbc
+   http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd
+   http://www.springframework.org/schema/integration/redis
+   http://www.springframework.org/schema/integration/redis/spring-integration-redis.xsd">
+	<!-- 入口 -->
+	<bean id="jobStarter" class="org.roof.node.integration.JobStarterImpl">
+		<property name="messageChannel" ref="paramChannel" />
+	</bean>
+
+	<int:channel id="paramChannel" />
+	<!-- 注册数据源 -->
+	<int:outbound-channel-adapter ref="jsonJdbcDataSourceRegisterNode"
+		channel="paramChannel">
+	</int:outbound-channel-adapter>
+	<bean id="jsonJdbcDataSourceRegisterNode"
+		class="org.roof.node.integration.JsonJdbcDataSourceRegisterNode">
+		<property name="messageChannel" ref="dataSourceChannel" />
+		<property name="jsonJdbcDataSourceRegister" ref="jsonJdbcDataSourceRegister"></property>
+	</bean>
+
+	<int:channel id="dataSourceChannel" />
+	<!-- 读数据 -->
+	<int:outbound-channel-adapter ref="jdbcReader"
+		channel="dataSourceChannel">
+	</int:outbound-channel-adapter>
+	<bean id="jdbcReader" class="org.roof.node.integration.JdbcReader">
+		<property name="messageChannel" ref="dataChannel" />
+		<property name="dataSourceContext" ref="dataSourceContext"></property>
+	</bean>
+
+	<!-- 渲染文件 -->
+	<int:channel id="dataChannel"></int:channel>
+	<int:outbound-channel-adapter ref="processor"
+		channel="dataChannel">
+	</int:outbound-channel-adapter>
+
+	<bean id="processor" class="org.roof.node.integration.Processor">
+		<property name="messageChannel" ref="fileChannel" />
+	</bean>
+
+	<int:channel id="fileChannel"></int:channel>
+
+	<!-- 写文件 -->
+	<int:outbound-channel-adapter ref="writer"
+		channel="fileChannel"></int:outbound-channel-adapter>
+
+	<bean id="writer" class="org.roof.node.integration.Writer">
+	</bean>
+
+</beans>

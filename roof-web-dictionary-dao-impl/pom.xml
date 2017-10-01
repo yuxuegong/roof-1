@@ -33,11 +33,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.roof</groupId>
-			<artifactId>roof-dataaccess</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.roof</groupId>
 			<artifactId>roof-dataaccess-mybatis</artifactId>
 			<version>3.0.1</version>
 			<scope>test</scope>

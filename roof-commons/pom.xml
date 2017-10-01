@@ -21,7 +21,7 @@
 	<artifactId>roof-commons</artifactId>
 	<packaging>jar</packaging>
 
-	<name>roof-common</name>
+	<name>roof-commons</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

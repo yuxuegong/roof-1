@@ -5,7 +5,7 @@
 	<artifactId>roof-web-user-webapp</artifactId>
 	<packaging>war</packaging>
 	<version>3.0.1</version>
-	<name>roof-web-user-webapp Maven Webapp</name>
+	<name>roof-web-user-webapp</name>
 	<url>http://maven.apache.org</url>
 	<distributionManagement>
 		<repository>

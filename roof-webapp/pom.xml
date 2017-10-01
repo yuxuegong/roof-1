@@ -5,7 +5,7 @@
 	<artifactId>roof-webapp</artifactId>
 	<packaging>war</packaging>
 	<version>3.0.1</version>
-	<name>roof-webapp Maven Webapp</name>
+	<name>roof-webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -121,7 +121,7 @@
 			<artifactId>spring-session</artifactId>
 			<version>1.0.1.RELEASE</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.roof</groupId>
 			<artifactId>roof-session-memcache</artifactId>
 			<version>1.0.0</version>
@@ -131,7 +131,7 @@
 					<groupId>org.springframework</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>

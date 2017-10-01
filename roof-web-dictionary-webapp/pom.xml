@@ -5,7 +5,7 @@
 	<artifactId>roof-web-dictionary-webapp</artifactId>
 	<packaging>war</packaging>
 	<version>3.0.1</version>
-	<name>roof-web-dictionary-webapp Maven Webapp</name>
+	<name>roof-web-dictionary-webapp</name>
 	<url>http://maven.apache.org</url>
 	<distributionManagement>
 		<repository>

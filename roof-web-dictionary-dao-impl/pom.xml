@@ -33,6 +33,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.roof</groupId>
+			<artifactId>roof-dataaccess</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.roof</groupId>
 			<artifactId>roof-dataaccess-mybatis</artifactId>
 			<version>3.0.1</version>
 			<scope>test</scope>
@@ -64,6 +69,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.1.6.RELEASE</version>
 		</dependency>
 	</dependencies>
 

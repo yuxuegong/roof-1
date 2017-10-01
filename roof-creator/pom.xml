@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.roof</groupId>
-	<artifactId>creator</artifactId>
+	<artifactId>roof-creator</artifactId>
 	<version>3.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>creator</name>
+	<name>roof-creator</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

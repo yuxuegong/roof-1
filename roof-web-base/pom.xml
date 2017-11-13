@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>roof</artifactId>
+        <groupId>org.roof</groupId>
+        <version>4.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>roof-web-base</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>roof-web-base-webapp</module>
+        <module>roof-web-base-entity</module>
+        <module>roof-web-base-service-api</module>
+        <module>roof-web-base-service-impl</module>
+        <module>roof-web-base-webapp</module>
+    </modules>
+
+
+</project>

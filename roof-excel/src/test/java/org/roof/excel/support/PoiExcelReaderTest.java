@@ -14,7 +14,7 @@ public class PoiExcelReaderTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+//	@Test
 	public void testNext() {
 		File file = new File("E:/excel/xsl_ecell.xls");
 		FileInputStream in = null;

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-@ContextConfiguration(locations = { "classpath:spring-*.xml" })
+//@ContextConfiguration(locations = { "classpath:spring-*.xml" })
 public class MybatisDatabaseReaderTest extends AbstractJUnit4SpringContextTests {
 
 	private ExcelDao excelDao;
@@ -19,8 +19,8 @@ public class MybatisDatabaseReaderTest extends AbstractJUnit4SpringContextTests 
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	@Test
+//
+//	@Test
 	public void testNext() {
 		MybatisDatabaseReader mybatisDatabaseReader = new MybatisDatabaseReader(excelDao, "select_e_ecell_used_record",
 				null);

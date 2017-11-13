@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-@ContextConfiguration(locations = { "classpath:spring-*.xml" })
+//@ContextConfiguration(locations = { "classpath:spring-*.xml" })
 public class PoiExcelMappingWriterTest extends AbstractJUnit4SpringContextTests {
 	private XslDb xslDb;
 	private MybatisDatabaseReader mybatisDatabaseReader;
@@ -23,7 +23,7 @@ public class PoiExcelMappingWriterTest extends AbstractJUnit4SpringContextTests 
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+//	@Test
 	public void testWrite() {
 		File file = new File("E:/excel/xsl_ecell.xls");
 		if (file.exists()) {

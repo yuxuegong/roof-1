@@ -14,13 +14,13 @@ public class AutoSinopec2CreateUtilsMysqlTest extends AbstractJUnit4SpringContex
 	AutoSinopec2CreateUtilsMysql autoSinopec2CreateUtilsMysql;
 
 	@Test
-	public void testCreateCode() {
+		public void testCreateCode() {
 		// 包名
-		String packagePath = "com.sinopec2.crm.dictionary";
+		String packagePath = "com.fpaworld.commission.partner";
 
 		// 添加需要生成的表名
 		List<String> sourcelist = new ArrayList<String>();
-		sourcelist.add("s_dictionary");
+		sourcelist.add("t_partner");
 		
 		// 拆分键
 		autoSinopec2CreateUtilsMysql.createCode(packagePath, sourcelist, "", false); // 不带拆分键，不带页签

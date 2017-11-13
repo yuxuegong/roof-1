@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-@ContextConfiguration(locations = { "classpath:spring-*.xml" })
+//@ContextConfiguration(locations = { "classpath:spring-*.xml" })
 
 public class PoiExcelMappingReaderTest extends AbstractJUnit4SpringContextTests {
 	private XslDb xslDb;
@@ -22,7 +22,7 @@ public class PoiExcelMappingReaderTest extends AbstractJUnit4SpringContextTests 
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+//	@Test
 	public void testNext() {
 		File file = new File("E:/excel/xsl_ecell.xls");
 		FileInputStream in = null;

@@ -22,7 +22,7 @@ $(function() {
 	var table = new ROOF.SelectableTable($('#${sysName}_${alias}_table'));
 	var page = new com.letv.PageBar($('#${sysName}_${alias}_search_form'));
 	$("#${sysName}_${alias}_create_btn").click(function() {
-		var ref = ROOF.Utils.openwindow(ROOF.Utils.projectName() + "/puman/${actionName}Action/create_page.action", "${tableDisplay}管理", width, height, true, true);
+		var ref = ROOF.Utils.openwindow(ROOF.Utils.projectName() + "/selin/${actionName}Action/create_page.action", "${tableDisplay}管理", width, height, true, true);
 		return false;
 	});
 	$("#${sysName}_${alias}_detail_btn").click(function() {
@@ -35,7 +35,7 @@ $(function() {
 		<#if (drdsId ??)>
 		var ${drdsId} = trs[0].find(":input[name='${drdsId}']").val();
 		</#if>
-		var ref = ROOF.Utils.openwindow(ROOF.Utils.projectName() + "/puman/${actionName}Action/detail_page.action?${key}=" + ${key} <#if (drdsId ??)> + "&${drdsId}=" + ${drdsId}</#if> , "${tableDisplay}管理", width, height, true);
+		var ref = ROOF.Utils.openwindow(ROOF.Utils.projectName() + "/selin/${actionName}Action/detail_page.action?${key}=" + ${key} <#if (drdsId ??)> + "&${drdsId}=" + ${drdsId}</#if> , "${tableDisplay}管理", width, height, true);
 		return false;
 	});
 	$("#${sysName}_${alias}_update_btn").click(function() {
@@ -48,7 +48,7 @@ $(function() {
 		<#if (drdsId ??)>
 		var ${drdsId} = trs[0].find(":input[name='${drdsId}']").val();
 		</#if>
-		var ref = ROOF.Utils.openwindow(ROOF.Utils.projectName() + "/puman/${actionName}Action/update_page.action?${key}=" + ${key} <#if (drdsId ??)> + "&${drdsId}=" + ${drdsId}</#if> , "${tableDisplay}管理", width, height, true);
+		var ref = ROOF.Utils.openwindow(ROOF.Utils.projectName() + "/selin/${actionName}Action/update_page.action?${key}=" + ${key} <#if (drdsId ??)> + "&${drdsId}=" + ${drdsId}</#if> , "${tableDisplay}管理", width, height, true);
 		return false;
 	});
 	$("#${sysName}_${alias}_delete_btn").click(function() {
@@ -66,7 +66,7 @@ $(function() {
 		</#if>
 		$.ajax({
 		    async: false,
-		    url : basePathConst+"/puman/${actionName}Action/delete.action",
+		    url : basePathConst+"/selin/${actionName}Action/delete.action",
 			data: {"${key}":${key}<#if (drdsId ??)>,"${drdsId}":${drdsId}</#if>},
 			    type: 'post',
 			    dataType: 'json',

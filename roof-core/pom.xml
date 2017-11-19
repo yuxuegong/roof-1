@@ -14,6 +14,9 @@
     <modules>
         <module>roof-commons</module>
         <module>roof-spring</module>
+        <module>roof-dataaccess</module>
+        <module>roof-dataaccess-api</module>
+        <module>roof-dataaccess-mybatis</module>
     </modules>
 
     <dependencies>

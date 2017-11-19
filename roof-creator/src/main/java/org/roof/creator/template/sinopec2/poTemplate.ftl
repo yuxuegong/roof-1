@@ -4,7 +4,8 @@ import javax.persistence.Id;
 import java.util.Date;
 import java.io.Serializable;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 <#assign key = primaryKey[0] />
 /**
  * @author 模版生成 <br/>

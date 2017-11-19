@@ -11,7 +11,7 @@
 <title>修改${tableDisplay}信息</title>
 
 <%@include file="/web_common/web_head_boot.jsp"%>
-<script type="text/javascript" src="${includeBase}/puman/${alias}/${alias}_update.js"></script>
+<script type="text/javascript" src="${includeBase}/selin/${alias}/${alias}_update.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		ROOF.Utils.readonlyForm($("#${sysName}_${alias}_form"));

@@ -13,7 +13,7 @@
 	</sql>
 	<sql id="conds">
 		<#list fields as field>
-		<#if field.fieldType == "Date">
+		<#if field.fieldType == "Date" || field.fieldType == "Long" || field.fieldType == "Integer">
 		<if test="${field.fieldName} != null">
 		<#else>
 		<if test="${field.fieldName} != null and ${field.fieldName} != ''">
@@ -61,7 +61,7 @@
 		update ${tableName}
 		<set>
 		<#list fields as field>
-		<#if field.fieldType == "Date">
+		<#if field.fieldType == "Date" || field.fieldType == "Long" || field.fieldType == "Integer">
 		<if test="${field.fieldName} != null">
 		<#else>
 		<if test="${field.fieldName} != null and ${field.fieldName} != ''">
@@ -77,7 +77,7 @@
 		update ${tableName}
 		<set>
 			<#list fields as field>
-			<#if field.fieldType == "Date">
+			<#if field.fieldType == "Date" || field.fieldType == "Long" || field.fieldType == "Integer">
 			<if test="${field.fieldName} != null">
 			<#else>
 			<if test="${field.fieldName} != null and ${field.fieldName} != ''">

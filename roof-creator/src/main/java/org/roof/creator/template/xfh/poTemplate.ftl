@@ -4,6 +4,8 @@ import javax.persistence.Id;
 import java.util.Date;
 import java.io.Serializable;
 import org.springframework.format.annotation.DateTimeFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 <#assign key = primaryKey[0] />
 /**
@@ -11,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  *         表名： ${tableName} <br/>
  *         描述：${tableDisplay} <br/>
  */
+@ApiModel(value = "${tableName}", description = "${tableDisplay}")
 public class ${alias?cap_first} implements Serializable {
 	// 需要手动添加非默认的serialVersionUID
 <#list fields as field>
@@ -19,6 +22,7 @@ public class ${alias?cap_first} implements Serializable {
 	<#elseif field.dbType == "date">
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	</#if>
+	@ApiModelProperty(value = "${field.fieldDisplay}")
 	protected ${field.fieldType} ${field.fieldName};// ${field.fieldDisplay}
 </#list>
 

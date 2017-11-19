@@ -3,6 +3,8 @@ package org.roof.spring;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 服务器端响应的消息格式
@@ -10,35 +12,40 @@ import com.alibaba.fastjson.JSON;
  * @author liuxin
  * 
  */
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6048347045275292432L;
+
 	public static final String SUCCESS = "success";
 	public static final String FAIL = "fail";
 	public static final String ERROR = "error";
 	/**
 	 * 错误编码
 	 */
+	@ApiModelProperty(name = "错误编码")
 	private String exceptionCode;
 
 	/**
 	 * 状态
 	 * 
 	 */
+	@ApiModelProperty(name = "状态")
 	private String state;
 
 	/**
 	 * 服务器返回到页面的消息
 	 */
+	@ApiModelProperty(name = "服务器返回的消息")
 	private String message;
 
 	/**
 	 * 服务器返回数据
 	 */
-	private Object data;
+	@ApiModelProperty(name = "服务器返回的数据")
+	private T data;
 
 	public Result() {
 	}
@@ -77,7 +84,7 @@ public class Result implements Serializable {
 	 * @param data
 	 *            返回的业务数据
 	 */
-	public Result(String state, Object data) {
+	public Result(String state, T data) {
 		super();
 		this.state = state;
 		this.data = data;
@@ -129,7 +136,7 @@ public class Result implements Serializable {
 	 * @param data
 	 *            返回的业务数据
 	 */
-	public Result(String state, String message, Object data) {
+	public Result(String state, String message, T data) {
 		super();
 		this.state = state;
 		this.message = message;
@@ -152,11 +159,11 @@ public class Result implements Serializable {
 		this.message = message;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 

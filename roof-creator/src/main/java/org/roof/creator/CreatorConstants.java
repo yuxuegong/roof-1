@@ -10,5 +10,5 @@ public class CreatorConstants {
 
 	public static final String PACKAGE_SERVICE = "service";
 
-	public static final String PACKAGE_ACTION = "action";
+	public static final String PACKAGE_ACTION = "controller";
 }

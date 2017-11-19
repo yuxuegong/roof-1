@@ -11,11 +11,11 @@
 <title>修改${tableDisplay}信息</title>
 
 <%@include file="/web_common/web_head_boot.jsp"%>
-<script type="text/javascript" src="${includeBase}/puman/${alias}/${alias}_update.js"></script>
+<script type="text/javascript" src="${includeBase}/selin/${alias}/${alias}_update.js"></script>
 </head>
 <body>
 	<div class="container layout-wraper" style="width: 100%;">
-		<form id="${sysName}_${alias}_form" action="${includeBase}/puman/${actionName}Action/update.json" method="post">
+		<form id="${sysName}_${alias}_form" action="${includeBase}/selin/${actionName}Action/update.json" method="post">
 			<div class="row">
 				<div class="col-xs-12 layout-header">
 					<button type="submit" class="btn btn-default">提交</button>

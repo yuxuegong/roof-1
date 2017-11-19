@@ -26,7 +26,9 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.roof.commons.PropertiesUtil;
 import org.roof.creator.bean.Domain;
+import org.roof.creator.bean.Field;
 import org.roof.creator.bean.Relation;
+import org.roof.creator.utils.CamelCaseUtils;
 import org.springframework.stereotype.Service;
 
 import freemarker.template.Configuration;
@@ -157,7 +159,7 @@ public class AutoXfhCreateUtilsMysql {
 				str = this.createServiceFromTable(tableName);
 
 				str = this.createActionFromTable(tableName);
-				str = this.createPageFromTable(tableName);
+				//str = this.createPageFromTable(tableName);
 				str = this.createJsFromTable(tableName);
 				System.out.println("\nOK ==============" + str);
 			} catch (Exception e) {
@@ -484,7 +486,7 @@ public class AutoXfhCreateUtilsMysql {
 		Map<String, Object> root = this.objectParamsToMap(domain);
 
 		String path = this.getExportPrefix() + CreatorConstants.PACKAGE_ACTION + "/"
-				+ WordUtils.capitalize(domain.getAlias()) + "Action.java";
+				+ WordUtils.capitalize(domain.getAlias()) + "Controller.java";
 		String flag = this.processWrite(this.getTemplatePrefix() + "actionTemplate.ftl", root, path);
 		if (StringUtils.isNotEmpty(flag)) {
 			return "文件生成到 " + path;
@@ -777,7 +779,11 @@ public class AutoXfhCreateUtilsMysql {
 				+ "(case when t.COLUMN_COMMENT='' then t.COLUMN_NAME else t.COLUMN_COMMENT end) fieldDisplay,t.CHARACTER_MAXIMUM_LENGTH len "
 				+ "from information_schema.columns t where table_name='" + tableName + "' and TABLE_SCHEMA = '"
 				+ PropertiesUtil.getPorpertyString("dbname") + "' ";
-		List list = this.executeSqlMap(sql);
+		List<Map> list = this.executeSqlMap(sql);
+		for(Map map :list){
+			String s = (String) map.get("fieldName");
+			map.put("fieldName",CamelCaseUtils.toCamelCase(s));
+		}
 		return list;
 	}
 

@@ -11,7 +11,7 @@
 <title>${tableDisplay}管理</title>
 
 <%@include file="/web_common/web_head_boot.jsp"%>
-<script type="text/javascript" src="${includeBase}/puman/${alias}/${alias}_list.js"></script>
+<script type="text/javascript" src="${includeBase}/selin/${alias}/${alias}_list.js"></script>
 </head>
 <#assign key = primaryKey[0] />
 <body>
@@ -19,7 +19,7 @@
 	<div class="panel panel-default" style="background-color: #f8f8f8; overflow: hidden;">
 		<div class="panel-heading">${tableDisplay}列表</div>
 		<div class="panel-body">
-			<form id="${sysName}_${alias}_search_form" class="form-inline" method="post" action="${includeBase}/puman/${actionName}Action/list.action">
+			<form id="${sysName}_${alias}_search_form" class="form-inline" method="post" action="${includeBase}/selin/${actionName}Action/list.action">
 				<%@include file="/web_common/web_page_bar_cond_default.jsp"%>
 				<#list fields as field>
 				<div class="form-group">

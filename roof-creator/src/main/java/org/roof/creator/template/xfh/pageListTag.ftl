@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>${tableDisplay}管理</title>
 <%@include file="/crm/sinopec_crm_head_boot.jsp"%>
-<script type="text/javascript" src="${includeBase}/puman/${alias}/${alias}_list.js"></script>
+<script type="text/javascript" src="${includeBase}/selin/${alias}/${alias}_list.js"></script>
 </head>
 <#assign key = primaryKey[0] />
 <body>
@@ -19,7 +19,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">${tableDisplay}列表</div>
 				<div class="panel-body">
-					<form id="${sysName}_${alias}_search_form" method="post" action="${includeBase}/puman/${actionName}Action/list.action">
+					<form id="${sysName}_${alias}_search_form" method="post" action="${includeBase}/selin/${actionName}Action/list.action">
 						<%@include file="/crm/sinopec_page_bar_cond_default.jsp"%>
 						<div class="section row">
 							<div class="col-md-10 col-xs-12 noPadding">

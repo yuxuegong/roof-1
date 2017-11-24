@@ -1,5 +1,6 @@
 package org.roof.web.cache.action;
 
+import com.google.common.collect.Lists;
 import org.roof.spring.Result;
 import org.roof.web.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,32 +12,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
- *
  * @author liuxin
- *
  */
 @Controller
-@RequestMapping("cache")
 public class CacheController {
 
-	private CacheManager cacheManager;
+    private CacheManager cacheManager;
 
-	@RequestMapping(method = {RequestMethod.GET})
-	public @ResponseBody Result list() {
-		return new Result(Result.SUCCESS,cacheManager.getCacheNames());
-	}
+    @RequestMapping(value = "cache", method = {RequestMethod.GET})
+    public @ResponseBody
+    Result list() {
+        Collection<String> cacheNames = cacheManager.getCacheNames();
+        List<Map<String,String>> list = Lists.newArrayList();
+        cacheNames.stream().forEach(c -> {
+            Map<String,String> map = new HashMap<String,String>(1);
+            map.put("cacheName",c);
+            list.add(map);
+        });
+        return new Result(Result.SUCCESS, list);
+    }
 
-	@RequestMapping(method = {RequestMethod.DELETE})
-	public @ResponseBody Result delete(String cacheName) {
-		Cache cache = cacheManager.getCache(cacheName);
-		cache.clear();
-		return new Result("清除成功！");
-	}
+    @RequestMapping(value = "cache", method = {RequestMethod.DELETE})
+    public @ResponseBody
+    Result delete(String cacheName) {
+        //Cache cache = cacheManager.getCache(cacheName);
+        //cache.clear();
+        return new Result("清除成功！");
+    }
 
-	@Autowired
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-	}
+    @Autowired
+    public void setCacheManager(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
+    }
 
 }

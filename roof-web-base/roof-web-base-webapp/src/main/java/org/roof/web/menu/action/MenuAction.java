@@ -11,13 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("menuAction")
+@RequestMapping("menu")
 public class MenuAction {
 	private IMenuService menuService;
 
@@ -26,20 +23,21 @@ public class MenuAction {
 		return "/roof-web/web/menu/menu_index.jsp";
 	}
 
-	@RequestMapping("/read")
-	public @ResponseBody List<MenuVo> read(@RequestParam(required = false) Long id) {
-		return menuService.read(id);
-	}
+	/*@RequestMapping(value = "/{id}",method = {RequestMethod.GET})
+	public @ResponseBody Result read(@PathVariable Long id) {
+		List<MenuVo> list =  menuService.read(id);
+		return new Result(Result.SUCCESS,list);
+	}*/
 
-	@RequestMapping("/detail")
-	public String detail(@RequestParam Long id, Model model) {
+	@RequestMapping(value = "/{id}",method = {RequestMethod.GET})
+	public @ResponseBody Result detail(@PathVariable Long id) {
 		Menu menu = menuService.load(id);
-		model.addAttribute("menuTypes", MenuType.values());
-		model.addAttribute("menu", menu);
-		return "/roof-web/web/menu/menu_detail.jsp";
+		//model.addAttribute("menuTypes", MenuType.values());
+		//model.addAttribute("menu", menu);
+		return new Result(Result.SUCCESS,menu);
 	}
 
-	@RequestMapping("/create")
+	@RequestMapping(method = {RequestMethod.POST})
 	public @ResponseBody Result create(@RequestParam Long parentId, @ModelAttribute("menu") Menu menu) {
 		if (menu != null) {
 			menuService.create(parentId, menu);
@@ -48,24 +46,16 @@ public class MenuAction {
 		return new Result("数据传输失败!");
 	}
 
-	@RequestMapping("/create_page")
-	public String create_page(@RequestParam Long parentId, Model model) {
-		if (parentId == null || parentId.longValue() == 0L) {
-			parentId = 1L;
-		}
-		model.addAttribute("parentId", parentId);
-		model.addAttribute("menuTypes", MenuType.values());
-		return "/roof-web/web/menu/menu_create_page.jsp";
-	}
 
-	@RequestMapping("/delete")
-	public @ResponseBody Result delete(@RequestParam Long id) {
+
+	@RequestMapping(value = "/{id}",method = {RequestMethod.DELETE})
+	public @ResponseBody Result delete(@PathVariable Long id) {
 		menuService.delete(id);
 		return new Result("删除成功!");
 	}
 
-	@RequestMapping("/update")
-	public @ResponseBody Result update(@ModelAttribute("menu") Menu menu) {
+	@RequestMapping(method = {RequestMethod.PUT})
+	public @ResponseBody Result update(@RequestBody Menu menu) {
 		Result result = new Result("数据传输失败!");
 		if (menu != null) {
 			if (menu.getModule() != null) {

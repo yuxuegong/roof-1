@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("dictionaryAction")
+@RequestMapping("dictionary")
 public class DictionaryController {
 
 	private IDictionaryService dictionaryService;
@@ -34,12 +34,7 @@ public class DictionaryController {
 		return dictionaryService.readVal(type, val);
 	}
 
-	@RequestMapping("/detail")
-	public String detail(Long id, Model model) {
-		Dictionary dictionary = (Dictionary) dictionaryService.load(new Dictionary(id));
-		model.addAttribute("dictionary", dictionary);
-		return "/roof-web/web/dictionary/dictionary_detail.jsp";
-	}
+
 
 	@RequestMapping("/create")
 	public @ResponseBody Result create(Long parentId, Dictionary dictionary) {

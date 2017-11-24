@@ -8,6 +8,7 @@
         <version>4.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
 
     <artifactId>roof-web-base-webapp</artifactId>
     <dependencies>
@@ -37,5 +38,14 @@
             <artifactId>spring-test</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>roof-web-base-webapp</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

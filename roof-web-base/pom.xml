@@ -17,7 +17,6 @@
         <module>roof-web-base-entity</module>
         <module>roof-web-base-service-api</module>
         <module>roof-web-base-service-impl</module>
-        <module>roof-web-base-webapp</module>
     </modules>
 
 

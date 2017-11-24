@@ -19,8 +19,13 @@
         <dependency>
             <groupId>org.roof</groupId>
             <artifactId>roof-dataaccess-mybatis</artifactId>
-            <version>3.0.1</version>
+            <version>${roof-version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

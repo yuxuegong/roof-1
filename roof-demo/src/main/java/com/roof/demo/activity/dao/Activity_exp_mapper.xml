@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roof.demo.activity.dao">
+	<sql id="columnsAs">
+		t1.id as id, t1.name as name, t1.code as code, t1.remark as remark, t1.apply_start_time as applyStartTime, t1.apply_end_time as applyEndTime, t1.vote_start_time as voteStartTime, t1.vote_end_time as voteEndTime, t1.status as status, t1.vote_rule as voteRule, t1.vote_limit as voteLimit, t1.create_date as createDate, t1.update_date as updateDate
+	</sql>
+	
+	<select id="selectActivityPage" resultType="com.roof.demo.activity.entity.ActivityVo">
+		select
+		<include refid="columnsAs"/>
+		from
+		v_activity t1
+		join
+		(SELECT
+		id
+		from
+		v_activity
+		where 1=1
+		<include refid="conds" />
+		order by id desc
+		limit #{firstrownum}, #{limit}) t2
+		where t1.id = t2.id
+	</select>
+	
+	<select id="selectActivityCount" resultType="java.lang.Long">
+		select
+		count(id)
+		from v_activity
+		where 1=1
+		<include refid="conds" />
+	</select>
+</mapper>

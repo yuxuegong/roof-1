@@ -43,5 +43,9 @@
 	<import resource="classpath:spring-cache-redis.xml" />
 
 
+	<import resource="spring-oauth2-service.xml" />
+
+
+
 
 </beans>

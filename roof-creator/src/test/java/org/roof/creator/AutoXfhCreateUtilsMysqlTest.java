@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.roof.commons.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,18 +18,20 @@ public class AutoXfhCreateUtilsMysqlTest extends
 	@Test
 	public void testCreateCode() {
 		// 包名
-		String packagePath = "org.roof.puman.shop";
+		String packagePath = "com.roof.fpa.charactercolor";
 
 		// 添加需要生成的表名
 		List<String> sourcelist = new ArrayList<String>();
-		sourcelist.add("p_shop");
+		sourcelist.add("c_character_color");
 
+		autoXfhCreateUtils.setProject_name("fpa");
 		// 拆分键
 		autoXfhCreateUtils.createCode(packagePath, sourcelist, "", false); // 不带拆分键，不带页签
 		// autoLetvCreateUtils.createCode(packagePath, sourcelist, "", true); //
 		// 不带拆分键，带页签
 		// autoLetvCreateUtils.createCode(packagePath, sourcelist, "username");
 		// // 带拆分键（不填默认为false）
+		
 	}
 
 	@Test

@@ -2,9 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<artifactId>roof</artifactId>
+		<groupId>org.roof</groupId>
+		<version>4.0.1-SNAPSHOT</version>
+	</parent>
+
 	<groupId>org.roof</groupId>
 	<artifactId>roof-creator</artifactId>
-	<version>3.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>roof-creator</name>
@@ -16,25 +21,43 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.roof</groupId>
-			<artifactId>roof-core3</artifactId>
-			<version>3.0.1</version>
+			<artifactId>roof-core</artifactId>
+			<version>${roof-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.roof</groupId>
 			<artifactId>roof-dataaccess-mybatis</artifactId>
-			<version>3.0.1</version>
+			<version>${roof-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>4.1.6.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.roof</groupId>
 			<artifactId>roof-commons</artifactId>
-			<version>3.0.1</version>
+			<version>${roof-version}</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 </project>

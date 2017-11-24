@@ -7,11 +7,7 @@
 				<Array type="java.lang.String">
 					<Item>E:\Users\hc_workspace_2016\webc</Item>
 					<Item>E:\git\roof\roof-demo\src\main\webapp</Item>
-					<Item>E:\git\vote\overlays\org.roof.roof-web-cache-webapp-3.0.1\</Item>
-					<Item>E:\git\vote\overlays\org.roof.roof-web-menu-webapp-3.0.1\</Item>
-					<Item>E:\git\vote\overlays\org.roof.roof-web-org-webapp-3.0.1\</Item>
-					<Item>E:\git\vote\overlays\org.roof.roof-web-user-webapp-3.0.1\</Item>
-					<Item>E:\git\vote\overlays\org.roof.roof-web-dictionary-webapp-3.0.1\</Item>
+					<Item>E:\git\roof\roof-web-base\roof-web-base-webapp\src\main\webapp</Item>
 				</Array>
 			</Arg>
 		</New>

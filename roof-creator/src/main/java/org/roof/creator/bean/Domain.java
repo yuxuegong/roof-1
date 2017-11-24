@@ -72,6 +72,8 @@ public class Domain {
 	 */
 	private List<Relation> relations;
 
+	private String projectName;
+
 	public String getClazzName() {
 		return clazzName;
 	}
@@ -176,4 +178,11 @@ public class Domain {
 		this.drdsId = drdsId;
 	}
 
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 }

@@ -11,16 +11,16 @@
 		<#list relations as relation>
 		<#if (relation.foreignCol == field.fieldName)>
 		<#assign isForeign = true />
-		<isNotEmpty prepend="and" property="${relation.alias}.${relation.primaryCol}"> 
-		<![CDATA[ 
+		<isNotEmpty prepend="and" property="${relation.alias}.${relation.primaryCol}">
+		<![CDATA[
 		${relation.alias}.${relation.primaryCol} = #${relation.alias}.${relation.primaryCol}#
-		]]> 
+		]]>
 		</isNotEmpty>
 		</#if>
 		</#list>
 		<#if (!(isForeign))>
-		<isNotEmpty prepend="and" property="${field.fieldName}"> 
-		<![CDATA[ 
+		<isNotEmpty prepend="and" property="${field.fieldName}">
+		<![CDATA[
 		<#if (field.dbType == "NUMBER")>
 		${field.fieldName} = #${field.fieldName}#
 		<#elseif (field.dbType == "DATE")>
@@ -28,35 +28,35 @@
 		<#else>
 		${field.fieldName} like '%' || #${field.fieldName}# || '%'
 		</#if>
-		]]> 
+		]]>
 		</isNotEmpty>
 		</#if>
 		</#list>
 		<![CDATA[
-		order by <#list primaryKey as key>${key}<#if (key_index != (primaryKey?size-1))>, </#if></#list> desc 
+		order by <#list primaryKey as key>${key}<#if (key_index != (primaryKey?size-1))>, </#if></#list> desc
 		]]>
 	</select>
-	
+
 	<select id="${alias?cap_first}_exp_select_${alias}_count" parameterClass="${packagePath}.entity.${alias?cap_first}"
 		resultClass="java.lang.Long">
-		<![CDATA[ 
+		<![CDATA[
 		select count(*) from ${alias?cap_first} WHERE 1 = 1
-		]]> 
+		]]>
 		<#list fields as field>
 		<#assign isForeign = false />
 		<#list relations as relation>
 		<#if (relation.foreignCol == field.fieldName)>
 		<#assign isForeign = true />
-		<isNotEmpty prepend="and" property="${relation.alias}.${relation.primaryCol}"> 
-		<![CDATA[ 
+		<isNotEmpty prepend="and" property="${relation.alias}.${relation.primaryCol}">
+		<![CDATA[
 		${relation.alias}.${relation.primaryCol} = #${relation.alias}.${relation.primaryCol}#
-		]]> 
+		]]>
 		</isNotEmpty>
 		</#if>
 		</#list>
 		<#if (!(isForeign))>
-		<isNotEmpty prepend="and" property="${field.fieldName}"> 
-		<![CDATA[ 
+		<isNotEmpty prepend="and" property="${field.fieldName}">
+		<![CDATA[
 		<#if (field.dbType == "NUMBER")>
 		${field.fieldName} = #${field.fieldName}#
 		<#elseif (field.dbType == "DATE")>

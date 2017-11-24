@@ -485,7 +485,7 @@ public class AutoLetvCreateUtilsMysql {
 
 		String path = this.getExportPrefix() + CreatorConstants.PACKAGE_ACTION + "/"
 				+ WordUtils.capitalize(domain.getAlias()) + "Action.java";
-		String flag = this.processWrite(this.getTemplatePrefix() + "actionTemplate.ftl", root, path);
+		String flag = this.processWrite(this.getTemplatePrefix() + "tableList.ftl", root, path);
 		if (StringUtils.isNotEmpty(flag)) {
 			return "文件生成到 " + path;
 		} else {

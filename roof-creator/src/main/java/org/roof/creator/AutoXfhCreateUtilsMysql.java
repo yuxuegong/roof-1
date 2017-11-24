@@ -29,6 +29,7 @@ import org.roof.creator.bean.Domain;
 import org.roof.creator.bean.Field;
 import org.roof.creator.bean.Relation;
 import org.roof.creator.utils.CamelCaseUtils;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.stereotype.Service;
 
 import freemarker.template.Configuration;
@@ -64,6 +65,8 @@ public class AutoXfhCreateUtilsMysql {
 	private String[] typeArr = { "create", "update", "detail" };
 
 	private boolean istag;
+
+	private String project_name;
 
 	/**
 	 * 生成默认的全部模版文件
@@ -160,7 +163,15 @@ public class AutoXfhCreateUtilsMysql {
 
 				str = this.createActionFromTable(tableName);
 				//str = this.createPageFromTable(tableName);
-				str = this.createJsFromTable(tableName);
+				//str = this.createJsFromTable(tableName);
+				str = this.createAntdModles(tableName);
+				str = this.createAntdServices(tableName);
+				str = this.createAntdaddForm(tableName);
+				str = this.createAntdupdateForm(tableName);
+
+
+				str = this.createAntdTableList(tableName);
+				str = this.createAntdListTable(tableName);
 				System.out.println("\nOK ==============" + str);
 			} catch (Exception e) {
 				errList.add(tableName);
@@ -169,6 +180,109 @@ public class AutoXfhCreateUtilsMysql {
 		}
 
 		System.err.println("errList = " + "[" + errList.size() + "]" + errList);
+	}
+
+	private String createAntdTableList(String tableName) throws Exception {
+		Domain domain = this.fillDomain(tableName);
+		List<Field> list =  domain.getFields();
+		Iterator<Field> iterator = list.iterator();
+		while (iterator.hasNext()){
+			Map field = (Map) iterator.next();
+			if(field.get("fieldName").equals("id")){
+				iterator.remove();
+				break;
+			}
+		}
+
+		Map<String, Object> root = this.objectParamsToMap(domain);
+
+		String path = this.getExportPrefix() + "antd/"  + "/"
+				+ WordUtils.capitalize(domain.getAlias()) + "List.js";
+		String flag = this.processWrite(this.getTemplatePrefix() + "tableList.ftl", root, path);
+		if (StringUtils.isNotEmpty(flag)) {
+			return "文件生成到 " + path;
+		} else {
+			return "文件生成失败！";
+		}
+	}
+
+	private String createAntdListTable(String tableName) throws Exception {
+		Domain domain = this.fillDomain(tableName);
+		List<Field> list =  domain.getFields();
+		Iterator<Field> iterator = list.iterator();
+		while (iterator.hasNext()){
+			Map field = (Map) iterator.next();
+			if(field.get("fieldName").equals("id")){
+				iterator.remove();
+				break;
+			}
+		}
+		Map<String, Object> root = this.objectParamsToMap(domain);
+
+		String path = this.getExportPrefix() + "antd/"
+				+ WordUtils.capitalize(domain.getAlias()) + "Table.js";
+		String flag = this.processWrite(this.getTemplatePrefix() + "listTable.ftl", root, path);
+		if (StringUtils.isNotEmpty(flag)) {
+			return "文件生成到 " + path;
+		} else {
+			return "文件生成失败！";
+		}
+	}
+
+	private String createAntdModles(String tableName) throws Exception {
+		Domain domain = this.fillDomain(tableName);
+		Map<String, Object> root = this.objectParamsToMap(domain);
+
+		String path = this.getExportPrefix() + "antd/" + CreatorConstants.PACKAGE_ANTD_MODLES + "/"
+				+ WordUtils.capitalize(domain.getAlias()).toLowerCase() + ".js";
+		String flag = this.processWrite(this.getTemplatePrefix() + "antdModles.ftl", root, path);
+		if (StringUtils.isNotEmpty(flag)) {
+			return "文件生成到 " + path;
+		} else {
+			return "文件生成失败！";
+		}
+	}
+
+	private String createAntdServices(String tableName) throws Exception {
+		Domain domain = this.fillDomain(tableName);
+		Map<String, Object> root = this.objectParamsToMap(domain);
+
+		String path = this.getExportPrefix() + "antd/" + CreatorConstants.PACKAGE_ANTD_SERVICES + "/"
+				+ WordUtils.capitalize(domain.getAlias()).toLowerCase() + ".js";
+		String flag = this.processWrite(this.getTemplatePrefix() + "antdServices.ftl", root, path);
+		if (StringUtils.isNotEmpty(flag)) {
+			return "文件生成到 " + path;
+		} else {
+			return "文件生成失败！";
+		}
+	}
+
+	private String createAntdaddForm(String tableName) throws Exception {
+		Domain domain = this.fillDomain(tableName);
+		Map<String, Object> root = this.objectParamsToMap(domain);
+
+		String path = this.getExportPrefix() + "antd/" + "/"
+				+ WordUtils.capitalize(domain.getAlias()) + "AddForm.js";
+		String flag = this.processWrite(this.getTemplatePrefix() + "antdaddForm.ftl", root, path);
+		if (StringUtils.isNotEmpty(flag)) {
+			return "文件生成到 " + path;
+		} else {
+			return "文件生成失败！";
+		}
+	}
+
+	private String createAntdupdateForm(String tableName) throws Exception {
+		Domain domain = this.fillDomain(tableName);
+		Map<String, Object> root = this.objectParamsToMap(domain);
+
+		String path = this.getExportPrefix() + "antd/" + "/"
+				+ WordUtils.capitalize(domain.getAlias()) + "EditForm.js";
+		String flag = this.processWrite(this.getTemplatePrefix() + "antdupdateForm.ftl", root, path);
+		if (StringUtils.isNotEmpty(flag)) {
+			return "文件生成到 " + path;
+		} else {
+			return "文件生成失败！";
+		}
 	}
 
 	/**
@@ -484,7 +598,6 @@ public class AutoXfhCreateUtilsMysql {
 		Domain domain = this.fillDomain(tableName);
 
 		Map<String, Object> root = this.objectParamsToMap(domain);
-
 		String path = this.getExportPrefix() + CreatorConstants.PACKAGE_ACTION + "/"
 				+ WordUtils.capitalize(domain.getAlias()) + "Controller.java";
 		String flag = this.processWrite(this.getTemplatePrefix() + "actionTemplate.ftl", root, path);
@@ -718,8 +831,10 @@ public class AutoXfhCreateUtilsMysql {
 				fileDir += "/" + arr[i];
 			}
 			dataDomain.setFileDir(fileDir);
+			dataDomain.setProjectName(this.project_name);
 			this.setMainDomain(dataDomain);
 		}
+
 		return this.getMainDomain();
 	}
 
@@ -775,14 +890,22 @@ public class AutoXfhCreateUtilsMysql {
 				+ "when t.DATA_TYPE ='bit' then 'Boolean' " + "when t.DATA_TYPE ='date' then 'Date'"
 				+ "when t.DATA_TYPE ='datetime' then 'Date'" + "when t.DATA_TYPE ='int' then 'Integer'"
 				+ "when t.DATA_TYPE ='double' then 'Double'" + "when t.DATA_TYPE ='decimal' then 'Double'"
-				+ "when t.DATA_TYPE ='bit' then 'Boolean' " + "else 'String' end ) fieldType,"
+				+ "when t.DATA_TYPE ='bit' then 'Boolean' "+"when t.DATA_TYPE ='tinyint' then 'Integer' " + "else 'String' end ) fieldType,"
 				+ "(case when t.COLUMN_COMMENT='' then t.COLUMN_NAME else t.COLUMN_COMMENT end) fieldDisplay,t.CHARACTER_MAXIMUM_LENGTH len "
 				+ "from information_schema.columns t where table_name='" + tableName + "' and TABLE_SCHEMA = '"
 				+ PropertiesUtil.getPorpertyString("dbname") + "' ";
 		List<Map> list = this.executeSqlMap(sql);
+		List<Field> fields = new ArrayList<>();
 		for(Map map :list){
 			String s = (String) map.get("fieldName");
+			String sql_field = (String) map.get("fieldName");
+			map.put("tableFieldName",sql_field);
+
 			map.put("fieldName",CamelCaseUtils.toCamelCase(s));
+			/*Field field = new Field();
+			BeanMap beanMap = BeanMap.create(field);
+			beanMap.putAll(map);
+			fields.add(field);*/
 		}
 		return list;
 	}
@@ -1008,5 +1131,13 @@ public class AutoXfhCreateUtilsMysql {
 
 	public void setIstag(boolean istag) {
 		this.istag = istag;
+	}
+
+	public String getProject_name() {
+		return project_name;
+	}
+
+	public void setProject_name(String project_name) {
+		this.project_name = project_name;
 	}
 }

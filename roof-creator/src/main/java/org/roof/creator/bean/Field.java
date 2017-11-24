@@ -9,6 +9,8 @@ public class Field {
 	 * 字段名称
 	 */
 	private String fieldName;
+
+	private String tableFieldName;
 	
 	/**
 	 * 数据库列长度
@@ -83,5 +85,11 @@ public class Field {
 		this.len = len;
 	}
 
+	public String getTableFieldName() {
+		return tableFieldName;
+	}
 
+	public void setTableFieldName(String tableFieldName) {
+		this.tableFieldName = tableFieldName;
+	}
 }

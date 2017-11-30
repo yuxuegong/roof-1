@@ -1,17 +1,18 @@
 package org.roof.dataaccess;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.roof.roof.dataaccess.api.FastPage;
+import org.roof.roof.dataaccess.api.IDaoSupport;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.roof.roof.dataaccess.api.FastPage;
-import org.roof.roof.dataaccess.api.IDaoSupport;
 
 /**
  * 必须设置当前页{@link FastPage#setCurrentPage(Long)}和目标页
@@ -44,7 +45,7 @@ public class FastPageQuery extends PageQuery {
 
 	private static final String _ORDER_BY_TYPE = "orderByType";
 
-	private static final Logger LOG = Logger.getLogger(FastPageQuery.class);
+	private static final Logger LOG = LogManager.getLogger(FastPageQuery.class);
 
 	private static final String _ORDER_BY_VAL = "orderByVal";
 

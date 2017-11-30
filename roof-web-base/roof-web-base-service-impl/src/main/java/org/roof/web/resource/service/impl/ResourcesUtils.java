@@ -15,7 +15,9 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.roof.roof.dataaccess.api.DaoException;
 import org.roof.web.resource.dao.api.IResourceDao;
 import org.roof.web.resource.entity.Module;
@@ -35,7 +37,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResourcesUtils implements IResourcesUtils {
 	private IResourceDao resourceDao;
-	private static Logger logger = Logger.getLogger(ResourcesUtils.class);
+	private static Logger logger = LogManager.getLogger(ResourcesUtils.class);
 
 	private static final String[] INIT_BASIC_RESOURCES = new String[] {
 			"Privilege|#name#列表|/**#path#/list*|#name#列表|list|#path#/list|1|2|#path#|true||html",

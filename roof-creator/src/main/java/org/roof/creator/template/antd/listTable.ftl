@@ -84,7 +84,7 @@ class StandardTable extends PureComponent {
         title: '操作',
         render: (text, record, index) => (
           <div>
-              <Link to={'/${actionName}/edit/'+record.id}>查看</Link>
+              <Link to={'/${actionName}/edit/'+record.id+'?read=true'}>查看</Link>
               <Divider type="vertical" />
               <Link to={'/${actionName}/edit/'+record.id}>编辑</Link>
               <Divider type="vertical" />

@@ -11,10 +11,11 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VerificationImage {
-	private static final Logger LOGGER = Logger.getLogger(VerificationImage.class);
+	private static final Logger LOGGER = LogManager.getLogger(VerificationImage.class);
 
 	/**
 	 * 生成验证码图片

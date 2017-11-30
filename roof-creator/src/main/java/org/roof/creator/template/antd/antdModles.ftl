@@ -71,7 +71,6 @@ export default {
       }
     },
     *update({ payload }, { call, put }) {
-      debugger;
       yield put({
         type: 'changeRegularFormSubmitting',
         payload: true,

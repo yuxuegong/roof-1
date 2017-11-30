@@ -1,6 +1,7 @@
 package org.roof.spring;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextStartedEvent;
 
@@ -11,7 +12,7 @@ import org.springframework.context.event.ContextStartedEvent;
  *
  */
 public class InjectionApplicationContextListener implements ApplicationListener<ContextStartedEvent> {
-	private static final Logger LOG = Logger.getLogger(InjectionApplicationContextListener.class);
+	private static final Logger LOG = LogManager.getLogger(InjectionApplicationContextListener.class);
 
 	@Override
 	public void onApplicationEvent(ContextStartedEvent event) {

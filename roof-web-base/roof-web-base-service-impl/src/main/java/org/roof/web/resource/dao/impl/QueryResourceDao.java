@@ -2,7 +2,8 @@ package org.roof.web.resource.dao.impl;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.roof.roof.dataaccess.api.AbstractDao;
 import org.roof.roof.dataaccess.api.DaoException;
 import org.roof.roof.dataaccess.api.IDaoSupport;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryResourceDao extends AbstractDao implements IQueryResourceDao {
 
-	private static final Logger LOGGER = Logger
+	private static final Logger LOGGER = LogManager
 			.getLogger(QueryResourceDao.class);
 
 	public QueryResource findByIdentify(String identify) {

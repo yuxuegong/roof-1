@@ -1,5 +1,8 @@
 package org.roof.commons;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,11 +15,10 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import org.apache.log4j.Logger;
 
 public class RoofVerificationImage {
 
-	private static final Logger LOGGER = Logger.getLogger(RoofVerificationImage.class);
+	private static final Logger LOGGER = LogManager.getLogger(RoofVerificationImage.class);
 
 	/**
 	 * 生成验证码图片

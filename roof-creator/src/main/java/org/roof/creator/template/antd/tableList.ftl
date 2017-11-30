@@ -168,14 +168,12 @@ export default class TableList extends PureComponent {
           </#if>
           <#if (field_index % Col_) == (Col_-1) && (field_index == (fields?size-1)) >
           </Row >
-            <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                <Col md={8} sm={24}>
-                  <span className={styles.submitButtons}>
-                    <Button type="primary" htmlType="submit">查询</Button>
-                    <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-                  </span>
-                </Col>
-            </Row >
+          <div style={{ overflow: 'hidden' }}>
+              <span style={{ float: 'right', marginBottom: 24 }}>
+              <Button type="primary" htmlType="submit">查询</Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+              </span>
+          </div>
           <#elseif (field_index == (fields?size-1)) >
               <Col md={8} sm={24}>
               <span className={styles.submitButtons}>
@@ -241,6 +239,7 @@ export default class TableList extends PureComponent {
               data={data}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
+              reLoadList={this.reLoadList}
             />
 
 

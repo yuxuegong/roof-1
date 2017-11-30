@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.omg.CORBA.portable.ApplicationException;
 import org.roof.roof.dataaccess.api.DaoException;
 import org.roof.web.dictionary.dao.api.IDictionaryDao;
@@ -19,7 +20,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class DictionaryService implements IDictionaryService {
 	private IDictionaryDao dictionaryDao;
-	private Logger LOGGER = Logger.getLogger(DictionaryService.class);
+	private Logger LOGGER = LogManager.getLogger(DictionaryService.class);
 
 	@Override
 	public List<Dictionary> findByType(String type) {

@@ -32,7 +32,8 @@ import org.apache.ibatis.mapping.ParameterMode;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -73,7 +74,7 @@ import org.springframework.util.Assert;
 @Transactional
 public class RoofDaoSupport implements IDaoSupport {
 
-	private static final Logger logger = Logger.getLogger(RoofDaoSupport.class);
+	private static final Logger logger = LogManager.getLogger(RoofDaoSupport.class);
 
 	protected HibernateTemplate hibernateTemplate;
 

@@ -28,7 +28,8 @@ import org.apache.ibatis.mapping.ParameterMode;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LockMode;
 import org.roof.commons.RoofMapUtils;
 import org.roof.roof.dataaccess.api.DaoException;
@@ -50,7 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoofDaoSupport extends RoofAbstractDao {
 
-	private static final Logger logger = Logger.getLogger(RoofDaoSupport.class);
+	private static final Logger logger = LogManager.getLogger(RoofDaoSupport.class);
 	private static final String[] FIND_SUB_PACKAGES = new String[] { "dao", "dao.impl", "" };
 	private String[] statementScanSubPackages = FIND_SUB_PACKAGES; // myBatis句柄扫描的子包
 	private IdGenerator idGenerator; // ID生成器

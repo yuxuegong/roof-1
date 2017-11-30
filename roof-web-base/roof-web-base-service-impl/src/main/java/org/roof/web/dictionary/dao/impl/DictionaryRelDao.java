@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.roof.dataaccess.FastPageQuery;
 import org.roof.roof.dataaccess.api.AbstractDao;
 import org.roof.roof.dataaccess.api.IDaoSupport;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictionaryRelDao extends AbstractDao implements IDictionaryRelDao {
 	
-	private static final Logger LOGGER = Logger.getLogger(DictionaryRelDao.class);
+	private static final Logger LOGGER = LogManager.getLogger(DictionaryRelDao.class);
 
 	private Map<String, String> dictionaryRelMap;
 

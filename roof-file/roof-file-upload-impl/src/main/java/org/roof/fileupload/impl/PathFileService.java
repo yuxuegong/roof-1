@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.commons.PropertiesUtil;
 import org.roof.fileupload.api.FileInfo;
 import org.roof.fileupload.api.FileService;
@@ -21,7 +21,7 @@ import org.roof.fileupload.utils.FileUtils;
 import org.springframework.beans.factory.InitializingBean;
 
 public class PathFileService implements FileService, InitializingBean {
-	private Logger LOGGER = LogManager.getLogger(DefaultFileService.class);
+	private Logger LOGGER = LoggerFactory.getLogger(DefaultFileService.class);
 	private PathGenerator pathGenerator = new DatePathGenerator();
 	private String rootDir = PropertiesUtil.getPorpertyString("rootDir");
 

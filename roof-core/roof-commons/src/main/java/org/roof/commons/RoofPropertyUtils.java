@@ -10,8 +10,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * 
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class RoofPropertyUtils {
 
-	private static final Logger LOGGER = LogManager
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(RoofPropertyUtils.class);
 
 	/**
@@ -73,13 +73,13 @@ public class RoofPropertyUtils {
 					copyPropertiesIgnoreExist(value, result, ignoreProperties);
 					return result;
 				} catch (IllegalAccessException e) {
-					LOGGER.error(e);
+					LOGGER.error("错误:",e.getCause());
 				} catch (InvocationTargetException e) {
-					LOGGER.error(e);
+					LOGGER.error("错误:",e.getCause());
 				} catch (NoSuchMethodException e) {
-					LOGGER.error(e);
+					LOGGER.error("错误:",e.getCause());
 				} catch (InstantiationException e) {
-					LOGGER.error(e);
+					LOGGER.error("错误:",e.getCause());
 				}
 				return value;
 			}

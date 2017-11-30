@@ -2,8 +2,8 @@ package org.roof.web.resource.dao.impl;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.roof.dataaccess.api.AbstractDao;
 import org.roof.roof.dataaccess.api.DaoException;
 import org.roof.roof.dataaccess.api.IDaoSupport;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryResourceDao extends AbstractDao implements IQueryResourceDao {
 
-	private static final Logger LOGGER = LogManager
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(QueryResourceDao.class);
 
 	public QueryResource findByIdentify(String identify) {
@@ -30,7 +30,7 @@ public class QueryResourceDao extends AbstractDao implements IQueryResourceDao {
 		try {
 			queryResource = (QueryResource) findSingle(hql, identify);
 		} catch (DaoException e) {
-			LOGGER.error(e);
+			LOGGER.error("错误:",e.getCause());
 		}
 		return queryResource;
 	}

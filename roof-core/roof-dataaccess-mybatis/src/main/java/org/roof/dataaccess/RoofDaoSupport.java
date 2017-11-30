@@ -28,8 +28,8 @@ import org.apache.ibatis.mapping.ParameterMode;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.hibernate.LockMode;
 import org.roof.commons.RoofMapUtils;
 import org.roof.roof.dataaccess.api.DaoException;
@@ -51,7 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoofDaoSupport extends RoofAbstractDao {
 
-	private static final Logger logger = LogManager.getLogger(RoofDaoSupport.class);
+	private static final Logger logger = LoggerFactory.getLogger(RoofDaoSupport.class);
 	private static final String[] FIND_SUB_PACKAGES = new String[] { "dao", "dao.impl", "" };
 	private String[] statementScanSubPackages = FIND_SUB_PACKAGES; // myBatis句柄扫描的子包
 	private IdGenerator idGenerator; // ID生成器
@@ -889,11 +889,11 @@ public class RoofDaoSupport extends RoofAbstractDao {
 				id = (Serializable) method.invoke(entity, ArrayUtils.EMPTY_OBJECT_ARRAY);
 			}
 		} catch (IllegalArgumentException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (IllegalAccessException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (InvocationTargetException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 		return id;
 	}
@@ -927,7 +927,7 @@ public class RoofDaoSupport extends RoofAbstractDao {
 				try {
 					field = entityClass.getDeclaredField(propertyDescriptor.getDisplayName());
 				} catch (NoSuchFieldException e) {
-					logger.debug(e);
+					logger.debug("错误:",e.getCause());
 				}
 				if (field != null && field.getAnnotation(Id.class) != null) {
 					return propertyDescriptor;
@@ -935,7 +935,7 @@ public class RoofDaoSupport extends RoofAbstractDao {
 			}
 			return idNamePropertyDescriptor;
 		} catch (SecurityException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 		return null;
 	}

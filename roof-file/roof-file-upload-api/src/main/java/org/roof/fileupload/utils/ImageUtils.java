@@ -14,8 +14,8 @@ import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * 图片工具
@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class ImageUtils {
 
-	private static final Logger logger = LogManager.getLogger(ImageUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(ImageUtils.class);
 
 	/**
 	 * 压缩图片为指定的高宽
@@ -145,7 +145,7 @@ public class ImageUtils {
 		try {
 			write(source, outputStream);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} finally {
 			outputStream.close();
 		}
@@ -170,7 +170,7 @@ public class ImageUtils {
 		try {
 			bufferedImage = read(inputStream);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} finally {
 			inputStream.close();
 		}

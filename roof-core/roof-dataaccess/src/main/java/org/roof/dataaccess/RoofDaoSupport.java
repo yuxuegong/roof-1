@@ -32,8 +32,8 @@ import org.apache.ibatis.mapping.ParameterMode;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -74,7 +74,7 @@ import org.springframework.util.Assert;
 @Transactional
 public class RoofDaoSupport implements IDaoSupport {
 
-	private static final Logger logger = LogManager.getLogger(RoofDaoSupport.class);
+	private static final Logger logger = LoggerFactory.getLogger(RoofDaoSupport.class);
 
 	protected HibernateTemplate hibernateTemplate;
 
@@ -1055,11 +1055,11 @@ public class RoofDaoSupport implements IDaoSupport {
 						ArrayUtils.EMPTY_OBJECT_ARRAY);
 			}
 		} catch (IllegalArgumentException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (IllegalAccessException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (InvocationTargetException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 		return id;
 	}
@@ -1092,14 +1092,14 @@ public class RoofDaoSupport implements IDaoSupport {
 					field = entityClass.getDeclaredField(propertyDescriptor
 							.getDisplayName());
 				} catch (NoSuchFieldException e) {
-					logger.debug(e);
+					logger.debug("错误:",e.getCause());
 				}
 				if (field != null && field.getAnnotation(Id.class) != null) {
 					return propertyDescriptor;
 				}
 			}
 		} catch (SecurityException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 		return null;
 	}

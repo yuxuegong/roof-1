@@ -12,8 +12,8 @@ import java.util.Date;
 import java.util.Map;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.commons.PropertiesUtil;
 import org.roof.commons.RoofDateUtils;
 import org.roof.fileupload.api.FileInfo;
@@ -23,7 +23,7 @@ import org.roof.fileupload.utils.FileUtils;
 import org.springframework.beans.factory.InitializingBean;
 
 public class DefaultFileService implements FileService, InitializingBean {
-	private Logger LOGGER = LogManager.getLogger(DefaultFileService.class);
+	private Logger LOGGER = LoggerFactory.getLogger(DefaultFileService.class);
 
 	@Override
 	public void afterPropertiesSet() throws Exception {

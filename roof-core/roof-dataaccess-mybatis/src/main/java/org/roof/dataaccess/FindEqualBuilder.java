@@ -13,8 +13,8 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -60,7 +60,7 @@ public class FindEqualBuilder {
 	 */
 	private Order[] orders;
 
-	private static final Logger logger = LogManager
+	private static final Logger logger = LoggerFactory
 			.getLogger(FindEqualBuilder.class);
 
 	private FindEqualBuilder() {
@@ -97,9 +97,9 @@ public class FindEqualBuilder {
 				}
 			}
 		} catch (IllegalAccessException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (InvocationTargetException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 		if (criterions != null) {
 			result.addAll(criterions);

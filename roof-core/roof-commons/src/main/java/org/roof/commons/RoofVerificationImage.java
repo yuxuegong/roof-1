@@ -1,7 +1,9 @@
 package org.roof.commons;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,7 +20,7 @@ import javax.imageio.ImageIO;
 
 public class RoofVerificationImage {
 
-	private static final Logger LOGGER = LogManager.getLogger(RoofVerificationImage.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RoofVerificationImage.class);
 
 	/**
 	 * 生成验证码图片

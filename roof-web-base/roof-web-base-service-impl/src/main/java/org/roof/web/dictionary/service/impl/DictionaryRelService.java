@@ -10,8 +10,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.web.dictionary.dao.api.IDictionaryDao;
 import org.roof.web.dictionary.dao.api.IDictionaryRelDao;
 import org.roof.web.dictionary.entity.Dictionary;
@@ -27,7 +27,7 @@ public class DictionaryRelService implements IDictionaryRelService {
 
 	private IDictionaryRelDao dictionaryRelDao;
 	private IDictionaryDao dictionaryDao;
-	private static final Logger LOG = LogManager.getLogger(DictionaryRelService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DictionaryRelService.class);
 	
 	public Object saveRel(Object entity) {
 		return saveRel(entity,true);

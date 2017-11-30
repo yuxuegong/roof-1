@@ -7,8 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.roof.dataaccess.api.IDaoSupport;
 import org.roof.web.dictionary.dao.api.IDictionaryDao;
 import org.roof.web.dictionary.entity.Dictionary;
@@ -31,7 +31,7 @@ public class DictionaryUtils implements IDictionaryUtils {
 
 	private static final String SEPARATORS[] = new String[] { " ", "\t" };
 
-	private static final Logger LOGGER = LogManager
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DictionaryUtils.class);
 
 	@Override

@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.fileupload.api.FileInfo;
 import org.roof.fileupload.api.FileInfoService;
 import org.roof.fileupload.api.FileManager;
@@ -17,7 +17,7 @@ import org.roof.fileupload.exception.FileInfoNotFoundException;
 import org.roof.fileupload.utils.FileUtils;
 
 public class SimpleFileManager implements FileManager {
-	private Logger LOGGER = LogManager.getLogger(FileManager.class);
+	private Logger LOGGER = LoggerFactory.getLogger(FileManager.class);
 
 	private FileService fileService;
 	private FileInfoService fileInfoService;

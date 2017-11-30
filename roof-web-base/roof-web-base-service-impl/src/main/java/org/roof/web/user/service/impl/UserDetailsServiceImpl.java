@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.roof.dataaccess.api.DaoException;
 import org.roof.web.role.dao.api.IRoleDao;
 import org.roof.web.role.entity.BaseRole;
@@ -24,7 +24,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
  */
 public class UserDetailsServiceImpl implements UserDetailsService, UserDetailsManager, GroupManager {
 
-	private static final Logger logger = LogManager.getLogger(UserDetailsServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 	private IUserDao userDao;
 	private IRoleDao roleDao;

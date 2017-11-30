@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.dataaccess.FastPageQuery;
 import org.roof.roof.dataaccess.api.AbstractDao;
 import org.roof.roof.dataaccess.api.IDaoSupport;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictionaryRelDao extends AbstractDao implements IDictionaryRelDao {
 	
-	private static final Logger LOGGER = LogManager.getLogger(DictionaryRelDao.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DictionaryRelDao.class);
 
 	private Map<String, String> dictionaryRelMap;
 
@@ -92,7 +92,7 @@ public class DictionaryRelDao extends AbstractDao implements IDictionaryRelDao {
 	 *            表名
 	 * @param propertyName
 	 *            属性id
-	 * @param relId
+	 * @param entityId
 	 *            实体类Id
 	 * @return 删除的记录行数
 	 */
@@ -110,7 +110,7 @@ public class DictionaryRelDao extends AbstractDao implements IDictionaryRelDao {
 			dictionaryRel.setThisTableName(parameterObject.getThisTableName());
 			delete("org.roof.web.dictionary.dao.DictionaryRelDao.deleteDictionaryRel", dictionaryRel);
 		}
-		LOGGER.debug(list.size());
+		LOGGER.debug("结果条数:",list.size());
 		return list.size();
 //		return delete("org.roof.web.dictionary.dao.DictionaryRelDao.deleteByExampleDictionaryRel", parameterObject);
 	}

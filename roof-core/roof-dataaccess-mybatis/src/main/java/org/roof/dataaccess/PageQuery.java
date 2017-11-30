@@ -11,8 +11,8 @@ import net.sf.cglib.beans.BeanGenerator;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.roof.dataaccess.api.IDaoSupport;
 import org.roof.roof.dataaccess.api.IPageQuery;
 import org.roof.roof.dataaccess.api.Page;
@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  */
 public class PageQuery implements IPageQuery {
 
-	private static final Logger LOG = LogManager.getLogger(PageQuery.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PageQuery.class);
 
 	protected static final String _LAST_ROW_NUM = "lastrownum";
 

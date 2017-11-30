@@ -10,8 +10,8 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.web.resource.dao.api.IResourceDao;
 import org.roof.web.resource.entity.Resource;
 import org.roof.web.role.dao.api.IRoleDao;
@@ -33,7 +33,7 @@ public class InvocationSecurityMetadataSourceService implements FilterInvocation
 	private IResourceDao resourceDao;
 	private IRoleDao roleDao;
 
-	private static final Logger logger = LogManager.getLogger(InvocationSecurityMetadataSourceService.class);
+	private static final Logger logger = LoggerFactory.getLogger(InvocationSecurityMetadataSourceService.class);
 
 	private CacheManager cacheManager;
 

@@ -16,8 +16,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.roof.roof.dataaccess.api.DaoException;
 import org.roof.web.resource.dao.api.IResourceDao;
 import org.roof.web.resource.entity.Module;
@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResourcesUtils implements IResourcesUtils {
 	private IResourceDao resourceDao;
-	private static Logger logger = LogManager.getLogger(ResourcesUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(ResourcesUtils.class);
 
 	private static final String[] INIT_BASIC_RESOURCES = new String[] {
 			"Privilege|#name#列表|/**#path#/list*|#name#列表|list|#path#/list|1|2|#path#|true||html",
@@ -79,12 +79,12 @@ public class ResourcesUtils implements IResourcesUtils {
 			Module root = findRoot();
 			seq(root, fileWriter);
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} finally {
 			try {
 				fileWriter.close();
 			} catch (IOException e1) {
-				logger.error(e1);
+				logger.error("错误:",e1.getCause());
 			}
 		}
 		return;
@@ -135,11 +135,11 @@ public class ResourcesUtils implements IResourcesUtils {
 		try {
 			return ObjectUtils.toString(PropertyUtils.getProperty(o, porpName), "");
 		} catch (IllegalAccessException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (InvocationTargetException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (NoSuchMethodException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 		return "";
 	}
@@ -148,11 +148,11 @@ public class ResourcesUtils implements IResourcesUtils {
 		try {
 			PropertyUtils.setProperty(o, porpName, value);
 		} catch (IllegalAccessException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (InvocationTargetException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (NoSuchMethodException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		}
 	}
 
@@ -181,15 +181,15 @@ public class ResourcesUtils implements IResourcesUtils {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("错误:",e.getCause());
 		} finally {
 			try {
 				in.close();
 				br.close();
 			} catch (IOException e) {
-				logger.error(e);
+				logger.error("错误:",e.getCause());
 			}
 		}
 		return;

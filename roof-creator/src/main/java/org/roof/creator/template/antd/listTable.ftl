@@ -52,13 +52,13 @@ class StandardTable extends PureComponent {
             content: '确认删除吗？',
             onOk() {
               dispatch({
-              type: '${actionName}/remove',
-              payload: {
-                id: record.id,
-              },
-            callback: () => {
-              reLoadList();
-            },
+                type: '${actionName}/remove',
+                payload: {
+                  id: record.id,
+                },
+                callback: () => {
+                  reLoadList();
+                },
             });
           },
           onCancel() {}

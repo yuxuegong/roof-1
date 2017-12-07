@@ -83,3 +83,18 @@
 	<!-- 增删改成模块 end -->
 </body>
 </html>
+
+
+{
+"ruleScoreMax": "从得分来看，你分数最高的是：${scoreMaxColorName}色。",
+"ruleCharacterColorDefn": "${scoreMaxColorName}色性格是：${characterColorDefn}",
+<#if characterColorLows !="">"ruleCharacterColorLows": "在你的性格中，比较缺少的是：${characterColorLows}",</#if>
+<#if characterAdvantage !="">"ruleCharacterAdvantage": "你最突出的优势是：${characterAdvantage}",</#if>
+<#if characterAdvantageOther !="">"ruleCharacterAdvantageOther": "同时，你${characterAdvantageOther}",</#if>
+<#if characterInsufficient !="">"ruleCharacterInsufficient": "你最明显的不足是：${characterInsufficient}",</#if>
+<#if characterInsufficientOther !="">"ruleCharacterInsufficientOther": "同时，你：${characterInsufficientOther}",</#if>
+<#if characterCare !="">"ruleCharacterCare": "对你来说，你最在意的是：${characterCare}",</#if>
+<#if characterCareOther !="">"ruleCharacterCareOther": "其次，你也：${characterCareOther},"</#if>
+"ruleScore": "你的四种性格色彩分数是:红${redScore} 黄${yellowScore} 蓝${blueScore} 绿${greenScore}"
+
+}

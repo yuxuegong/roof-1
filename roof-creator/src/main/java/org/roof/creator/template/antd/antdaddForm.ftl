@@ -35,6 +35,9 @@ export default class BasicForms extends PureComponent {
         this.props.dispatch({
           type: '${actionName}/add',
           payload: values,
+          callback: () => {
+            this.props.dispatch(routerRedux.push('/${actionName}'));
+          },
         });
       }
     });

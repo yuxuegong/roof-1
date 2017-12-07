@@ -67,33 +67,34 @@ public class TokenController implements InitializingBean {
     private Set<HttpMethod> allowedRequestMethods = new HashSet<HttpMethod>(Arrays.asList(HttpMethod.POST,HttpMethod.GET));
 
     @RequestMapping(value = "/token", method= RequestMethod.GET)
-    public ResponseEntity<OAuth2AccessToken> getAccessToken(Principal principal, @RequestParam
-            Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    public ResponseEntity<OAuth2AccessToken> getAccessToken(
+            TokenDto parameters) throws HttpRequestMethodNotSupportedException {
         if (!allowedRequestMethods.contains(HttpMethod.GET)) {
             throw new HttpRequestMethodNotSupportedException("GET");
         }
-        return postAccessToken(principal, parameters);
+        return postAccessToken(parameters);
     }
 
     @RequestMapping(value = "/token", method=RequestMethod.POST)
-    public ResponseEntity<OAuth2AccessToken> postAccessToken(Principal principal, @RequestBody
-            Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        parameters.put("grant_type","password");
+    public ResponseEntity<OAuth2AccessToken> postAccessToken( @RequestBody TokenDto tokenDto) throws HttpRequestMethodNotSupportedException {
+        Map<String,String> parameters = tokenDto.getMap();
+
+
         /*if (!(principal instanceof Authentication)) {
             throw new InsufficientAuthenticationException(
                     "There is no client authentication. Try adding an appropriate authentication filter.");
         }*/
         //UsernamePasswordAuthenticationToken principal1 = new UsernamePasswordAuthenticationToken("admin","DF10EF8509DC176D733D59549E7DBFAF");
 
-        String clientId = parameters.get("username");//getClientId(principal);
+        String clientId = parameters.get("client_id");//getClientId(principal);
         if (!StringUtils.hasText(clientId)) {
-            throw new InvalidRequestException("Missing username");
+            throw new InvalidRequestException("Missing username || client_id");
         }
         ClientDetails authenticatedClient = null;
         try{
             authenticatedClient = getClientDetailsService().loadClientByClientId(clientId);
         }catch (NoSuchClientException e){
-            ClientDetails clientDetails = new BaseClientDetails(clientId, null, null, "password", null);
+            ClientDetails clientDetails = new BaseClientDetails(clientId, null, tokenDto.getScope(), tokenDto.getGrant_type(), null);
             clientRegistrationService.addClientDetails(clientDetails);
             authenticatedClient = getClientDetailsService().loadClientByClientId(clientId);
         }

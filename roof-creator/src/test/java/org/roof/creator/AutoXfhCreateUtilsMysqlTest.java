@@ -18,11 +18,11 @@ public class AutoXfhCreateUtilsMysqlTest extends
 	@Test
 	public void testCreateCode() {
 		// 包名
-		String packagePath = "com.roof.fpa.cardgroup";
+		String packagePath = "com.roof.fpa.customerwords";
 
 		// 添加需要生成的表名
 		List<String> sourcelist = new ArrayList<String>();
-		sourcelist.add("c_card_group");
+		sourcelist.add("c_customer_words");
 
 		autoXfhCreateUtils.setProject_name("fpa");
 		// 拆分键

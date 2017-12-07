@@ -8,6 +8,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,11 +39,11 @@ public class CacheController {
         return new Result(Result.SUCCESS, list);
     }
 
-    @RequestMapping(value = "cache", method = {RequestMethod.DELETE})
+    @RequestMapping(value = "cache/{cacheName}", method = {RequestMethod.DELETE})
     public @ResponseBody
-    Result delete(String cacheName) {
-        //Cache cache = cacheManager.getCache(cacheName);
-        //cache.clear();
+    Result delete(@PathVariable String cacheName) {
+        Cache cache = cacheManager.getCache(cacheName);
+        cache.clear();
         return new Result("清除成功！");
     }
 

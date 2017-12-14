@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import org.roof.roof.dataaccess.api.Page;
+import org.roof.web.core.TreeDate;
 import org.roof.web.org.dao.api.IOrgDao;
 import org.roof.web.org.entity.OrgVo;
 import org.roof.web.org.entity.Organization;
@@ -43,6 +45,30 @@ public class OrgService implements IOrgService {
 	public List<OrgVo> read(Long parentId) {
 		List<Organization> orgs = orgDao.findOrgByParent(parentId);
 		return this.read(orgs);
+	}
+
+	private List<TreeDate> tree(List<Organization> orgs){
+		List<TreeDate> treeDates = Lists.newArrayList();
+		for (Organization organization :orgs){
+			TreeDate treeDate = new TreeDate();
+			treeDate.setKey(organization.getId()+"");
+			treeDate.setValue(organization.getId()+"");
+			treeDate.setTitle(organization.getName());
+			treeDate.setLeaf(organization.getLeaf());
+			treeDates.add(treeDate);
+		}
+		return treeDates;
+	}
+
+	public List<TreeDate> readToTree(Long parentId) {
+		List<Organization> orgs = orgDao.findOrgByParent(parentId);
+		List<TreeDate> treeDates = this.tree(orgs);
+
+		for (TreeDate treeDate :treeDates){
+			treeDate.setChildren(this.readToTree(Long.valueOf(treeDate.getValue())));
+		}
+
+		return treeDates;
 	}
 
 	@Override

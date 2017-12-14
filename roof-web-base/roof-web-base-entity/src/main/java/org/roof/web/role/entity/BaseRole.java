@@ -2,6 +2,7 @@ package org.roof.web.role.entity;
 
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.roof.web.resource.entity.Resource;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -16,6 +17,7 @@ public class BaseRole implements GrantedAuthority {
 	private static final long serialVersionUID = 7539222051677360527L;
 	protected Long id;
 	protected String name;
+	@JSONField(serialize=false)
 	protected Set<Resource> resources; // 可以访问的资源
 	protected String dtype = this.getClass().getSimpleName();
 
@@ -101,5 +103,7 @@ public class BaseRole implements GrantedAuthority {
 			return false;
 		return true;
 	}
+
+
 
 }

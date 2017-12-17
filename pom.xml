@@ -15,6 +15,7 @@
         <module>roof-oauth2</module>
         <module>roof-creator</module>
         <module>roof-file</module>
+        <module>roof-httpclient</module>
     </modules>
 
     <properties>

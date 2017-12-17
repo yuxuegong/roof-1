@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.roof.roof.dataaccess.api.Page;
+import org.roof.web.core.TreeDate;
 import org.roof.web.org.entity.OrgVo;
 import org.roof.web.org.entity.Organization;
 import org.roof.web.org.entity.OrganizationVo;
@@ -84,5 +85,7 @@ public interface IOrgService {
 	 * 按对象中的非空属性作为条件，进行分页查询
 	 */
 	public abstract Page page(Page page, Organization organization);
+
+	public List<TreeDate> readToTree(Long parentId);
 
 }

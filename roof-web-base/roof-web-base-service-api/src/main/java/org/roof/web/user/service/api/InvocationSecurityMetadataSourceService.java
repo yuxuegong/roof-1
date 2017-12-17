@@ -94,7 +94,10 @@ public class InvocationSecurityMetadataSourceService implements FilterInvocation
 	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		String url = null;
+		String method = null;
 		if (object instanceof FilterInvocation) {
+			FilterInvocation filterInvocation = (FilterInvocation) object ;
+			method = filterInvocation.getRequest().getMethod();
 			url = ((FilterInvocation) object).getRequestUrl();
 		}
 		if (object instanceof String) {

@@ -4,6 +4,7 @@ import java.beans.Transient;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.roof.web.org.entity.Organization;
 
 /**
@@ -15,7 +16,9 @@ import org.roof.web.org.entity.Organization;
 public class User extends BaseUser {
 	private static final long serialVersionUID = 1L;
 	protected String name;// 用户名称（中文）
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	protected Date create_date;// 创建时间
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	protected Date update_time; // 信息修改时间
 	protected Long login_count;// 成功登录次数
 	protected List<Long> orgIds;

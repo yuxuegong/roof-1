@@ -1,6 +1,6 @@
 import { message } from 'antd';
 
-import {query${alias?cap_first},add${alias?cap_first},load${alias?cap_first},update${alias?cap_first},remove${alias?cap_first} } from '../services/${actionName}';
+import {query${alias?cap_first},add${alias?cap_first},load${alias?cap_first},update${alias?cap_first},remove${alias?cap_first},query${alias?cap_first}Base } from '../services/${actionName}';
 
 export default {
   namespace: '${actionName}',
@@ -52,7 +52,7 @@ export default {
 
       if (callback) callback();
     },
-    *add({ payload }, { call, put }) {
+    *add({ payload, callback }, { call, put }) {
       yield put({
         type: 'changeRegularFormSubmitting',
         payload: true,
@@ -64,13 +64,14 @@ export default {
       });
       if(response.state == 'success'){
         message.success(response.message);
+        if (callback) callback();
       }else if(response.message){
         message.error(response.message);
       }else{
         message.error('提交失败');
       }
     },
-    *update({ payload }, { call, put }) {
+    *update({ payload, callback }, { call, put }) {
       yield put({
         type: 'changeRegularFormSubmitting',
         payload: true,
@@ -82,6 +83,7 @@ export default {
       });
       if(response.state == 'success'){
         message.success(response.message);
+        if (callback) callback();
       }else if(response.message){
         message.error(response.message);
       }else{
@@ -104,10 +106,26 @@ export default {
       }else{
         message.error('提交失败');
       }
-      
       yield put({
         type: 'changeLoading',
         payload: {},
+      });
+    },
+    *base({ payload }, { call, put }) {
+      const response = yield call(query${alias?cap_first}Base, payload);
+      if(response.state == 'success'){
+        yield put({
+          type: 'load',
+          payload: response.data,
+        });
+      }else{
+        throw response;
+      }
+    },
+    *clean({ payload }, { call, put }){
+      yield put({
+        type: 'show',
+        payload: {formdate: {},},
       });
     },
   },
@@ -117,6 +135,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    load(state, action) {
+      return {
+        ...state,
+        ...action.payload,
       };
     },
     show(state, { payload }) {

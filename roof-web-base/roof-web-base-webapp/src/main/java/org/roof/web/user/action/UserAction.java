@@ -10,18 +10,27 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.google.common.collect.Maps;
+import io.swagger.annotations.ApiOperation;
 import org.roof.commons.Md5Generator;
 import org.roof.commons.SysConstants;
 import org.roof.roof.dataaccess.api.Page;
 import org.roof.roof.dataaccess.api.PageUtils;
 import org.roof.spring.Result;
+import org.roof.web.core.TreeDate;
+import org.roof.web.org.dao.api.IOrgDao;
+import org.roof.web.org.service.api.IOrgService;
 import org.roof.web.resource.entity.Module;
 import org.roof.web.role.entity.BaseRole;
 import org.roof.web.role.entity.Role;
 import org.roof.web.role.service.api.IRoleService;
 import org.roof.web.user.entity.User;
+import org.roof.web.user.entity.UserVo;
 import org.roof.web.user.service.api.BaseUserContext;
 import org.roof.web.user.service.api.IUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -29,9 +38,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONPath;
 
@@ -42,6 +49,9 @@ public class UserAction {
 	// private IMenuFilter menuFilter;
 	private IUserService userService;
 	private IRoleService roleService;
+
+	@Autowired
+	private IOrgService orgService;
 
 	@RequestMapping("/goLogin")
 	public String goLogin(String errorCode, Model model) {
@@ -113,9 +123,13 @@ public class UserAction {
 		return null;
 	}
 
-	@RequestMapping("/update")
-	public @ResponseBody Result update(User user, @RequestParam("rolesIds") Long[] rolesIds, Model model) {
-		if (user != null) {
+	@RequestMapping(value = "user/{id}", method = {RequestMethod.PUT})
+	public @ResponseBody Result update(@PathVariable Long id ,@RequestBody UserVo userVo) {
+		if (userVo != null) {
+			User user = new User();
+			BeanUtils.copyProperties(userVo,user);
+			user.setDtype(User.class.getSimpleName());
+			Long [] rolesIds = userVo.getRolesIds();
 			user.setPassword(null);
 			if (rolesIds != null) {
 				Set<BaseRole> roles = new HashSet<BaseRole>();
@@ -160,9 +174,13 @@ public class UserAction {
 		return "/roof-web/web/user/user_update_page.jsp";
 	}
 
-	@RequestMapping("/create")
-	public @ResponseBody Result create(User user, @RequestParam("rolesIds") Long[] rolesIds) {
-		if (user != null) {
+	@RequestMapping(value = "user", method = {RequestMethod.POST})
+	public @ResponseBody Result create(@RequestBody UserVo userVo) {
+		if (userVo != null) {
+			User user = new User();
+			BeanUtils.copyProperties(userVo,user);
+			user.setDtype(User.class.getSimpleName());
+			Long [] rolesIds = userVo.getRolesIds();
 			if (rolesIds != null) {
 				Set<BaseRole> roles = new HashSet<BaseRole>();
 				for (Long roleId : rolesIds) {
@@ -188,11 +206,66 @@ public class UserAction {
 		return "/roof-web/web/user/user_create_page.jsp";
 	}
 
-	@RequestMapping("/delete")
-	public @ResponseBody Result delete(Long id) {
-		User user = new User();
-		user.setId(id);
-		userService.delete(user);
+
+
+	@ApiOperation(value = "获得s_user基础信息")
+	@RequestMapping(value = "user/base", method = {RequestMethod.GET})
+	public @ResponseBody Result<Map<String,Object>> base(HttpServletRequest request) {
+		Map<String,Object> map = Maps.newHashMap();
+		List<Role> roleses = roleService.loadAll();
+		map.put("roleses",roleses);
+		List<TreeDate> orgs = orgService.readToTree(1L);
+		map.put("orgs",orgs);
+
+		return new Result(Result.SUCCESS, map);
+	}
+
+	@ApiOperation(value = "获得s_user分页列表")
+	@RequestMapping(value = "user", method = {RequestMethod.GET})
+	public @ResponseBody Result<Page> list(User user, HttpServletRequest request) {
+		Page page = PageUtils.createPage(request);
+		page = userService.page(page, user);
+		return new Result(Result.SUCCESS, page);
+	}
+
+
+	/*@ApiOperation(value = "新增s_user")
+	@RequestMapping(value = "user", method = {RequestMethod.POST})
+	public @ResponseBody Result create(@RequestBody User user) {
+		if (user != null) {
+			userService.save(user);
+			return new Result("保存成功!");
+		} else {
+			return new Result(Result.FAIL,"数据传输失败!");
+		}
+	}*/
+
+	@ApiOperation(value = "根据ID加载s_user")
+	@RequestMapping(value = "user/{id}", method = {RequestMethod.GET})
+	public @ResponseBody Result<User> load(@PathVariable Long id) {
+		//JSON.DEFAULT_GENERATE_FEATURE |= SerializerFeature.DisableCircularReferenceDetect.getMask();
+
+		User userVo = userService.load(id);
+		return new Result(Result.SUCCESS,userVo);
+	}
+
+	/*@ApiOperation(value = "根据ID更新s_user")
+	@RequestMapping(value = "user/{id}", method = {RequestMethod.PUT})
+	public @ResponseBody Result update(@PathVariable Long id ,@RequestBody User user) {
+		if (id != null && user != null) {
+			user.setId(id);
+			userService.updateIgnoreNull(user);
+			return new Result("保存成功!");
+		} else {
+			return new Result(Result.FAIL,"数据传输失败!");
+		}
+	}*/
+
+	@ApiOperation(value = "根据ID删除s_user")
+	@RequestMapping(value = "user/{id}", method = {RequestMethod.DELETE})
+	public @ResponseBody Result delete(@PathVariable Long id ) {
+		// TODO 有些关键数据是不能物理删除的，需要改为逻辑删除
+		userService.delete(new User(id));
 		return new Result("删除成功!");
 	}
 

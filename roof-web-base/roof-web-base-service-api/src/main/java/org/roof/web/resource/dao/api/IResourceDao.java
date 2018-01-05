@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.roof.roof.dataaccess.api.IDaoSupport;
+import org.roof.web.resource.entity.Privilege;
 import org.roof.web.resource.entity.Resource;
 
 public interface IResourceDao extends IDaoSupport {
@@ -11,6 +12,9 @@ public interface IResourceDao extends IDaoSupport {
 	public abstract List<Resource> loadAll();
 
 	public abstract List<Resource> findModuleByParent(Long parentId);
+
+	public List<Privilege> findPrivilegeByParent(Long parentId);
+
 
 	public abstract List<Resource> findModuleByPath(String path);
 

@@ -1,8 +1,15 @@
 package org.roof.web.menu.entity;
 
-public enum MenuType {
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.JSONSerializable;
+import com.alibaba.fastjson.serializer.JSONSerializer;
 
-	Front("前台", "1"), BackGround("后台", "2"), Mobile("手机", "3");
+import java.io.IOException;
+import java.lang.reflect.Type;
+
+public enum MenuType implements JSONSerializable {
+
+	Front("前台", "Front"), BackGround("后台", "BackGround"), Mobile("手机", "Mobile");
 
 	private String display;
 	private String code;
@@ -26,6 +33,16 @@ public enum MenuType {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	@Override
+	public void write(JSONSerializer serializer, Object fieldName, Type fieldType, int features) throws IOException {
+
+		JSONObject object = new JSONObject();
+		object.put("code",code);
+		object.put("display",display);
+		serializer.write(object);
+
 	}
 
 }

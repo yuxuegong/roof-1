@@ -9,19 +9,20 @@ import org.roof.web.resource.entity.Module;
 
 public class Menu implements Serializable {
 	private static final long serialVersionUID = 7309864170153025694L;
-	private Long id;
-	private String dtype = this.getClass().getSimpleName();
-	private String name;
-	private Integer lvl;
-	private Boolean leaf;
-	private Menu parent;
-	private List<Menu> children;
-	private Module module;
-	private String target;
-	private MenuType menuType;
-	private String script;
-	private String icon;
-	private Integer seq;
+	protected Long id;
+	protected String dtype = this.getClass().getSimpleName();
+	protected String name;
+	protected Integer lvl;
+	protected Boolean leaf;
+	protected Menu parent;
+	protected List<Menu> children;
+	protected Module module;
+	protected String target;
+	protected MenuType menuType;
+	protected String script;
+	protected String icon;
+	protected Integer seq;
+	protected String path;
 
 	public Menu() {
 		super();
@@ -137,4 +138,11 @@ public class Menu implements Serializable {
 		this.dtype = dtype;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

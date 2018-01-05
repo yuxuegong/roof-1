@@ -1,5 +1,7 @@
 package org.roof.web.dictionary.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class DictionaryVo implements Serializable {
 	private String pId;
 	private String name;
 	private String title;
+	@JSONField(name="isLeaf")
 	private Boolean leaf;
 	private String type;
 	private String url;
@@ -20,6 +23,7 @@ public class DictionaryVo implements Serializable {
 	private Boolean checked;
 	private String val;
 	private String description; // 描述
+	private String key;
 
 	public DictionaryVo() {
 		super();
@@ -165,4 +169,11 @@ public class DictionaryVo implements Serializable {
 		this.description = description;
 	}
 
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 }

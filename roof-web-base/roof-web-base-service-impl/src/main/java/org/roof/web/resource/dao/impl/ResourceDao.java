@@ -8,6 +8,7 @@ import java.util.Map;
 import org.roof.roof.dataaccess.api.AbstractDao;
 import org.roof.roof.dataaccess.api.IDaoSupport;
 import org.roof.web.resource.dao.api.IResourceDao;
+import org.roof.web.resource.entity.Privilege;
 import org.roof.web.resource.entity.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +31,18 @@ public class ResourceDao extends AbstractDao implements IResourceDao {
 		}
 		@SuppressWarnings("unchecked")
 		List<Resource> resources = (List<Resource>) daoSupport
+				.selectForList("org.roof.web.resource.dao.findModuleByParent", param);
+		return resources;
+	}
+
+	public List<Privilege> findPrivilegeByParent(Long parentId) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("parentId", parentId);
+		if (parentId == null) {
+			param.put("lvl", 0);
+		}
+		@SuppressWarnings("unchecked")
+		List<Privilege> resources = (List<Privilege>) daoSupport
 				.selectForList("org.roof.web.resource.dao.findModuleByParent", param);
 		return resources;
 	}

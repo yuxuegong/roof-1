@@ -1,5 +1,7 @@
 package org.roof.web.resource.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 模块
  * 
@@ -17,7 +19,10 @@ public class Module extends Resource {
 	protected Integer seq;// 顺序
 	protected Integer lvl;// 等级
 	protected Module parent; // 父节点
+	@JSONField(name="isLeaf")
 	protected Boolean leaf;// 是否为叶子节点
+
+
 
 	public String getIdentify() {
 		return identify;
@@ -66,5 +71,6 @@ public class Module extends Resource {
 	public void setLeaf(Boolean leaf) {
 		this.leaf = leaf;
 	}
+
 
 }

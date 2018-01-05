@@ -64,8 +64,10 @@ public class DictionaryService implements IDictionaryService {
 	private void copyProperties(Dictionary dictionary, DictionaryVo dictionaryVo) {
 		dictionaryVo.setId(dictionary.getId().toString());
 		dictionaryVo.setName(dictionary.getText());
+		dictionaryVo.setTitle(dictionary.getText());
 		dictionaryVo.setType(dictionary.getType());
 		dictionaryVo.setVal(dictionary.getVal());
+		dictionaryVo.setKey(dictionary.getVal());
 		dictionaryVo.setLeaf(isLeaf(dictionary));
 		dictionaryVo.setDescription(dictionary.getDescription());
 	}

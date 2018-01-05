@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.roof.roof.dataaccess.api.IDaoSupport;
+import org.roof.web.core.TreeSelectDate;
 import org.roof.web.resource.dao.api.IResourceDao;
 import org.roof.web.resource.entity.Module;
 import org.roof.web.resource.entity.Privilege;
@@ -100,6 +101,13 @@ public class ResourceService implements IResourceService {
 		resourceVo.setTitle(resource.getPattern());
 	}
 
+
+	public void copyProperties(Resource resource, TreeSelectDate treeSelectDate) {
+		treeSelectDate.setValue(resource.getId().toString());
+		treeSelectDate.setKey(resource.getId().toString());
+		treeSelectDate.setLabel(resource.getName());
+	}
+
 	/**
 	 * 创建一个资源
 	 * 
@@ -178,6 +186,24 @@ public class ResourceService implements IResourceService {
 	@Override
 	public List<Resource> findModuleByParent(Long parentId) {
 		return resourceDao.findModuleByParent(parentId);
+	}
+
+	public List<TreeSelectDate> recursionByParent(Long parentId) {
+		List<Resource> list = resourceDao.findModuleByParent(parentId);
+		List<TreeSelectDate> result = new ArrayList<TreeSelectDate>();
+		for (Resource resource : list) {
+			TreeSelectDate treeSelectDate = new TreeSelectDate();
+			copyProperties(resource, treeSelectDate);
+			List<TreeSelectDate> privilegeList = this.recursionByParent(resource.getId());
+			treeSelectDate.setChildren(privilegeList);
+			result.add(treeSelectDate);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Privilege> findPrivilegeByParent(Long parentId) {
+		return resourceDao.findPrivilegeByParent(parentId);
 	}
 
 	public IResourceDao getResourceDao() {

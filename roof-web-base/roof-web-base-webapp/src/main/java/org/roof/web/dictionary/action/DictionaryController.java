@@ -4,66 +4,64 @@ import java.util.List;
 
 import org.roof.spring.Result;
 import org.roof.web.dictionary.entity.Dictionary;
+import org.roof.web.dictionary.entity.DictionaryDto;
 import org.roof.web.dictionary.entity.DictionaryVo;
 import org.roof.web.dictionary.service.api.IDictionaryService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("dictionary")
+@RequestMapping("base/dictionary")
 public class DictionaryController {
 
 	private IDictionaryService dictionaryService;
 
-	@RequestMapping("/index")
-	public String index() {
-		return "/roof-web/web/dictionary/dictionary_index.jsp";
+
+	@RequestMapping(value = "/read",method = {RequestMethod.GET})
+	public @ResponseBody Result read(String type) {
+		List<DictionaryVo> vos = dictionaryService.read(type);
+		return new Result(Result.SUCCESS,vos);
 	}
 
-	@RequestMapping("/read")
-	public @ResponseBody List<DictionaryVo> read(String type) {
-		return dictionaryService.read(type);
-	}
+	@RequestMapping(value = "/readVal",method = {RequestMethod.GET})
+	public @ResponseBody Result  readVal(String type, String val) {
+		List<DictionaryVo> vos = dictionaryService.readVal(type, val);
+		return new Result(Result.SUCCESS,vos);
 
-	@RequestMapping("/readVal")
-	public @ResponseBody List<DictionaryVo> readVal(String type, String val) {
-		return dictionaryService.readVal(type, val);
 	}
 
 
 
-	@RequestMapping("/create")
-	public @ResponseBody Result create(Long parentId, Dictionary dictionary) {
-		if (dictionary != null) {
-			dictionaryService.create(parentId, dictionary);
+	@RequestMapping( method = {RequestMethod.POST})
+	public @ResponseBody Result create(@RequestBody DictionaryDto dictionaryDto) {
+		if (dictionaryDto != null) {
+			Dictionary dictionary = new Dictionary();
+			BeanUtils.copyProperties(dictionaryDto,dictionary);
+			dictionaryService.create(dictionaryDto.getParentId(), dictionary);
 			return new Result("保存成功!");
 		} else {
 			return new Result("数据传输失败!");
 		}
 	}
 
-	@RequestMapping("/create_page")
-	public String create_page(Long parentId, Model model) {
-		if (parentId == null || parentId.longValue() == 0L) {
-			parentId = 1L;
-		}
-		Dictionary dictionary = (Dictionary) dictionaryService.load(new Dictionary(parentId));
-		model.addAttribute("dictionary", dictionary);
-		return "/roof-web/web/dictionary/dictionary_create_page.jsp";
-	}
-
-	@RequestMapping("/delete")
-	public @ResponseBody Result delete(Long id) {
+	@RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
+	public @ResponseBody Result delete(@PathVariable Long id) {
 		dictionaryService.delete(id);
 		return new Result("删除成功!");
 	}
 
-	@RequestMapping("/update")
-	public @ResponseBody Result update(Dictionary dictionary) {
+	@RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+	public @ResponseBody Result<Dictionary> load(@PathVariable Long id) {
+		Dictionary dictionary = dictionaryService.load(new Dictionary(id));
+		return new Result(Result.SUCCESS,dictionary);
+	}
+
+	@RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
+	public @ResponseBody Result update(@RequestBody Dictionary dictionary) {
 		if (dictionary != null) {
 			dictionaryService.updateIgnoreNull(dictionary);
 			return new Result("保存成功!");

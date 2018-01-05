@@ -2,6 +2,7 @@ package org.roof.web.resource.service.api;
 
 import java.util.List;
 
+import org.roof.web.core.TreeSelectDate;
 import org.roof.web.resource.entity.Privilege;
 import org.roof.web.resource.entity.Resource;
 import org.roof.web.resource.entity.ResourceVo;
@@ -47,5 +48,8 @@ public interface IResourceService {
 	public abstract void updateIgnoreNull(Privilege privilege);
 
 	public abstract List<Resource> findModuleByParent(Long parentId);
+
+	public List<Privilege> findPrivilegeByParent(Long parentId);
+	public List<TreeSelectDate> recursionByParent(Long parentId);
 
 }

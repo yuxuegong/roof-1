@@ -5,88 +5,60 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.roof.spring.Result;
+import org.roof.web.dictionary.entity.Dictionary;
+import org.roof.web.dictionary.entity.DictionaryVo;
 import org.roof.web.resource.entity.Privilege;
 import org.roof.web.resource.entity.Resource;
 import org.roof.web.resource.entity.ResourceVo;
 import org.roof.web.resource.service.api.IResourceService;
 import org.roof.web.resource.service.api.IResourcesUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("resourceAction")
+@RequestMapping("base/resource")
 public class ResourceAction {
+	private static final Logger logger = LoggerFactory.getLogger(ResourceAction.class);
 	private IResourceService resourceService;
 	private IResourcesUtils resourcesUtils;
 
-	/**
-	 * 资源管理首页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/index")
-	public String index() {
-		return "/roof-web/web/resources/resource_index.jsp";
-	}
 
-	/**
-	 * 根据父节点ID加载资源列表页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/list")
-	public String list(Long parentId, Model model) {
-		Resource resource = resourceService.load(parentId == null ? 1L : parentId);
-		List<Resource> resources = resourceService.findModuleByParent(parentId);
-		model.addAttribute("resources", resources);
-		model.addAttribute("resource", resource);
-		return "/roof-web/web/resources/resource_list.jsp";
-	}
-
-	/**
-	 * 资源详情页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/detail")
-	public String detail(Long id, Model model) {
+	@RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+	public @ResponseBody Result<Privilege> load(@PathVariable Long id) {
 		Privilege resource = resourceService.load(id);
 		if (resource.getParent() != null && resource.getParent().getId() != null) {
 			resource.setParent(resourceService.load(resource.getParent().getId()));
 		}
-		model.addAttribute("resource", resource);
-		if ("Privilege".equalsIgnoreCase(resource.getDtype())) {
-			return "/roof-web/web/resources/resource_resource_detail.jsp";
-		}
-		if ("Module".equalsIgnoreCase(resource.getDtype())) {
-			return "/roof-web/web/resources/resource_module_detail.jsp";
-		}
-		if ("QueryResource".equalsIgnoreCase(resource.getDtype())) {
-			return "/roof-web/web/resources/resource_query_detail.jsp";
-		}
-		if ("QueryFilterResource".equalsIgnoreCase(resource.getDtype())) {
-			return "/roof-web/web/resources/resource_queryfilter_detail.jsp";
-		}
-		return "/roof-web/web/resources/resource_resource_detail.jsp";
+		return new Result(Result.SUCCESS,resource);
 	}
+
 
 	/**
 	 * 创建一个新的资源
-	 * 
+	 *
 	 * @return
 	 */
-	@RequestMapping("/create")
-	public @ResponseBody Result create(Long parentId, String type) {
-		resourceService.create(parentId, type);
-		return new Result(Result.SUCCESS, "新增成功!");
+	@RequestMapping(method = {RequestMethod.POST})
+	public @ResponseBody Result create(@RequestBody Privilege privilege) {
+		try {
+			Long parentId = privilege.getParent().getId();
+			String type = privilege.getDtype();
+			resourceService.create(parentId, type);
+			return new Result(Result.SUCCESS, "新增成功!");
+		}catch (Exception e){
+			logger.error("新增资源",e);
+			return new Result(Result.FAIL, "新增失败");
+		}
+
 	}
 
-	@RequestMapping("/delete")
-	public @ResponseBody Result delete(Long id) {
+	@RequestMapping(value="/{id}",method = {RequestMethod.DELETE})
+	public @ResponseBody Result delete(@PathVariable Long id) {
 		resourceService.delete(id);
 		return new Result("删除成功!");
 	}
@@ -111,6 +83,12 @@ public class ResourceAction {
 			resourceService.updateIgnoreNull(privilege);
 		}
 		return new Result("保存成功!");
+	}
+
+	@RequestMapping(value = "/tree",method = {RequestMethod.GET})
+	public @ResponseBody Result read(Long parentId) {
+		List<Privilege> resources = resourceService.findPrivilegeByParent(parentId);
+		return new Result(Result.SUCCESS,resources);
 	}
 
 	/**

@@ -46,6 +46,7 @@ public class MenuAction {
 	@RequestMapping(value = "read",method = {RequestMethod.GET})
 	public @ResponseBody Result read(Long parentId) {
 		List<MenuVo> list =  menuService.read(parentId);
+
 		return new Result(Result.SUCCESS,list);
 	}
 

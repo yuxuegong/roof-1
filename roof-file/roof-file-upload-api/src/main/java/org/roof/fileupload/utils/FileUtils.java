@@ -1,28 +1,17 @@
 package org.roof.fileupload.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
 /**
- * @author <a href="mailto:liuxin@zjhcsoft.com">liuxin</a>
- * @version 1.0 FileUtils.java 2012-8-22
+ * File Utils
+ * @author hzliuxin1 Created on 2012-8-22
  */
 public class FileUtils {
 
@@ -152,9 +141,7 @@ public class FileUtils {
 	/**
 	 * 在文件夹下加入今天的日期(yyyyMMdd)为名称的子文件夹 <br />
 	 * 有则返回没有则创建
-	 * 
-	 * @param root
-	 *            根目录
+     *
 	 * @param path
 	 *            相对目录
 	 * @return 加入日期文件夹的目录
@@ -167,17 +154,52 @@ public class FileUtils {
 		return fullPath;
 	}
 
-	public static void deleteFile(String path) {
-		if (logger.isInfoEnabled()) {
-			logger.info("正在删除文件[" + path + "]...");
-		}
-		File file = new File(path);
-		file.delete();
-		if (logger.isInfoEnabled()) {
-			logger.info("正在文件成功[" + path + "]");
-		}
-	}
+    /**
+     * 删除文件
+     *
+     * @param path 文件目录
+     * @return 是否删除成功
+     */
+    public static boolean deleteFile(String path) {
+        File file = new File(path);
+        return deleteFile(file);
+    }
 
+
+    public static boolean deleteFile(File file) {
+        return file.exists() && file.isFile() && file.delete();
+    }
+
+    /**
+     * 删除文件夹及文件夹下的所有文件
+     *
+     * @param path 文件目录
+     */
+    public static void deleteDir(String path) {
+        File file = new File(path);
+        deleteDir(file);
+        file.delete();
+    }
+
+    public static void deleteDir(File dir) {
+        if (dir.isFile()) {
+            deleteFile(dir);
+            return;
+        }
+        File[] files = dir.listFiles();
+        if (files == null || files.length == 0) {
+            dir.delete();
+            return;
+        }
+        for (File file : files) {
+            if (file.isDirectory()) {
+                deleteDir(file);
+                file.delete();
+            } else {
+                deleteFile(file);
+            }
+        }
+    }
 	/**
 	 * 读取文件夹下所有子目录下的后缀文件，并将其保存到list集合中。
 	 * 
@@ -210,6 +232,25 @@ public class FileUtils {
 		}
 		return list;
 	}
+
+    /**
+     * 获取文件的行数
+     *
+     * @param path 文件路径
+     * @return 文件行数
+     */
+    public static int lineNumber(String path) {
+        try (FileReader fileReader = new FileReader(path);
+             LineNumberReader lineNumberReader = new LineNumberReader(fileReader)) {
+            lineNumberReader.skip(Long.MAX_VALUE);
+            int lineNumber = lineNumberReader.getLineNumber();
+            lineNumber++;
+            return lineNumber;
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return 0;
+    }
 
 	public static List<String> readCurrFolder(String url, String suffix) throws IOException {
 		List<String> list = new ArrayList<String>();

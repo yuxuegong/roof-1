@@ -25,6 +25,8 @@ public class Resource implements Serializable {
 	protected String description;
 	protected String dtype;
 	protected Set<BaseRole> baseRole;
+	protected String method;
+
 
 	@Id
 	public Long getId() {
@@ -98,6 +100,14 @@ public class Resource implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 }

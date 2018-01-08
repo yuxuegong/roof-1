@@ -22,6 +22,7 @@ public class Module extends Resource {
 	@JSONField(name="isLeaf")
 	protected Boolean leaf;// 是否为叶子节点
 
+	protected String method;
 
 
 	public String getIdentify() {
@@ -72,5 +73,11 @@ public class Module extends Resource {
 		this.leaf = leaf;
 	}
 
+	public String getMethod() {
+		return method;
+	}
 
+	public void setMethod(String method) {
+		this.method = method;
+	}
 }

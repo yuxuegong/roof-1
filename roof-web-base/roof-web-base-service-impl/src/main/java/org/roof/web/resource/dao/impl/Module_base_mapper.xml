@@ -4,15 +4,15 @@
 <mapper namespace="org.roof.web.resource.dao">
 	<sql id="columnsModule">
 		id, dtype, name, pattern, description, identify, path, seq,
-		lvl, parent_id as 'parent.id', leaf
+		lvl, parent_id as 'parent.id', leaf,method
 	</sql>
 	<sql id="columnsInsertModule">
 		id, dtype, name, pattern, description, identify, path, seq,
-		lvl, parent_id, leaf
+		lvl, parent_id, leaf,method
 	</sql>
 	<sql id="valsModule">
 		#{id}, #{dtype}, #{name}, #{pattern}, #{description},
-		#{identify}, #{path}, #{seq}, #{lvl}, #{parent.id}, #{leaf}
+		#{identify}, #{path}, #{seq}, #{lvl}, #{parent.id}, #{leaf},#{method}
 	</sql>
 	<sql id="condsModule">
 		<if test="id != null">
@@ -48,6 +48,10 @@
 		<if test="leaf != null">
 			and leaf = #{leaf}
 		</if>
+		<if test="method != null and method != ''">
+			and method = #{method}
+		</if>
+
 	</sql>
 	<insert id="saveModule" parameterType="org.roof.web.resource.entity.Module"
 		useGeneratedKeys="true" keyProperty="id">
@@ -101,7 +105,8 @@
 			seq=#{seq},
 			lvl=#{lvl},
 			parent_id=#{parent.id},
-			leaf=#{leaf}
+			leaf=#{leaf},
+			method = #{method}
 		</set>
 		where id=#{id}
 	</update>
@@ -142,6 +147,9 @@
 			<if test="leaf != null">
 				leaf=#{leaf},
 			</if>
+			<if test="method != null and method != ''">
+				method = #{method}
+			</if>
 		</set>
 		where id=#{id}
 	</update>
@@ -181,6 +189,9 @@
 			</if>
 			<if test="leaf != null">
 				leaf=#{leaf},
+			</if>
+			<if test="method != null and method != ''">
+				method = #{method}
 			</if>
 		</set>
 		where 1=1

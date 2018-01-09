@@ -16,20 +16,15 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 public abstract class AbstractSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
     protected static final Logger LOGGER = LoggerFactory.getLogger(InvocationSecurityMetadataSourceService.class);
 
-    protected static final String DEFAULT_METHOD = "get";
     protected static final String DEFAULT_RESOURCE_MAP_KEY = "resource_map";
     protected static final String DEFAULT_CACHE_NAME = "MetadataSourceService#loadResourceDefine";
     protected static final String ALL_PATH_PATTERN = "/**/*";
     protected static final String ALL_PATH_ROLE = "ROLE_-1";
-    protected static final String ALL_METHOD = "*";
-    protected String defaultMethod = DEFAULT_METHOD;
-
     protected IResourceDao resourceDao;
     protected IRoleDao roleDao;
 
@@ -164,17 +159,6 @@ public abstract class AbstractSecurityMetadataSourceService implements FilterInv
     @Override
     public boolean supports(Class<?> clazz) {
         return true;
-    }
-
-    String getRequestMethod(HttpServletRequest httpServletRequest) {
-        if (httpServletRequest == null) {
-            return defaultMethod;
-        }
-        String method = httpServletRequest.getMethod();
-        if (StringUtils.isEmpty(method)) {
-            return defaultMethod;
-        }
-        return defaultMethod.toLowerCase();
     }
 
     public CacheManager getCacheManager() {

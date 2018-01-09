@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RestfulSecurityMetadataSourceService extends AbstractSecurityMetadataSourceService {
     private static final String METHOD_PATTERN_SPLITER = " ";
+    private static final String DEFAULT_METHOD = "get";
+    private static final String ALL_METHOD = "*";
+    protected String defaultMethod = DEFAULT_METHOD;
+
 
     @Override
     protected String createResourcePattern(Resource resource) {
@@ -41,5 +45,24 @@ public class RestfulSecurityMetadataSourceService extends AbstractSecurityMetada
             url = DEFAULT_METHOD + METHOD_PATTERN_SPLITER + object;
         }
         return url;
+    }
+
+    private String getRequestMethod(HttpServletRequest httpServletRequest) {
+        if (httpServletRequest == null) {
+            return defaultMethod;
+        }
+        String method = httpServletRequest.getMethod();
+        if (StringUtils.isEmpty(method)) {
+            return defaultMethod;
+        }
+        return defaultMethod.toLowerCase();
+    }
+
+    public String getDefaultMethod() {
+        return defaultMethod;
+    }
+
+    public void setDefaultMethod(String defaultMethod) {
+        this.defaultMethod = defaultMethod;
     }
 }

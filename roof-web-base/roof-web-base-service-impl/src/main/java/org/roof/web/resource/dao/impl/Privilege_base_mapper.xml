@@ -13,7 +13,7 @@
 	</sql>
 	<sql id="vals">
 		#{id}, #{dtype}, #{name}, #{pattern}, #{description},
-		#{identify}, #{path}, #{seq}, #{lvl}, #{parent.id}, #{leaf},#{method}
+		#{identify}, #{path}, #{seq}, #{lvl}, #{parent.id}, #{leaf},#{method},
 		#{returnExample}, #{remark}, #{format}
 	</sql>
 	<sql id="conds">
@@ -50,6 +50,9 @@
 		<if test="leaf != null">
 			and leaf = #{leaf}
 		</if>
+		<if test="method != null and method != ''">
+			and method = #{method}
+		</if>
 		<if test="returnExample != null and returnExample != ''">
 			and returnExample = #{returnExample}
 		</if>
@@ -59,9 +62,7 @@
 		<if test="format != null and format != ''">
 			and format = #{format}
 		</if>
-		<if test="method != null and method != ''">
-			and method = #{method}
-		</if>
+
 
 	</sql>
 

@@ -236,11 +236,11 @@ public class FileUtils {
     /**
      * 获取文件的行数
      *
-     * @param path 文件路径
+	 * @param file 文件
      * @return 文件行数
      */
-    public static int lineNumber(String path) {
-        try (FileReader fileReader = new FileReader(path);
+	public static int lineNumber(File file) {
+		try (FileReader fileReader = new FileReader(file);
              LineNumberReader lineNumberReader = new LineNumberReader(fileReader)) {
             lineNumberReader.skip(Long.MAX_VALUE);
             int lineNumber = lineNumberReader.getLineNumber();
@@ -251,6 +251,17 @@ public class FileUtils {
         }
         return 0;
     }
+
+	/**
+	 * 读取文件行数
+	 *
+	 * @param path 文件路径
+	 * @return
+	 */
+	public static int lineNumber(String path) {
+		File file = new File(path);
+		return lineNumber(file);
+	}
 
 	public static List<String> readCurrFolder(String url, String suffix) throws IOException {
 		List<String> list = new ArrayList<String>();

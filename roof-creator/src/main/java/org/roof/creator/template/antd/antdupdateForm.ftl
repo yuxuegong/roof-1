@@ -11,6 +11,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
+<#assign key = primaryKey[0] />
 
 @connect(state => ({
   ${actionName}: state.${actionName},
@@ -86,7 +87,7 @@ export default class BasicForms extends PureComponent {
             style={{ marginTop: 8 }}
           >
           <#list fields as field>
-            <#if field.fieldName == 'id' >
+            <#if (field.fieldName == key) >
                 {getFieldDecorator('${field.fieldName}', {
                   initialValue:formdate.${field.fieldName},
                   rules: [{

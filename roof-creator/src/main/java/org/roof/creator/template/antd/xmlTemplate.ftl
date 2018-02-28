@@ -109,5 +109,10 @@
 		from ${tableName}
 		where 1=1
 		<include refid="conds" />
+		<#list fields as field>
+			<#if field.tableFieldName == "state">
+		and state = '1'
+			</#if>
+		</#list>
 	</select>
 </mapper>

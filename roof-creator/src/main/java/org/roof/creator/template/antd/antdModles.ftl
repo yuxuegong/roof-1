@@ -1,6 +1,6 @@
 import { message } from 'antd';
 
-import {query${alias?cap_first},add${alias?cap_first},load${alias?cap_first},update${alias?cap_first},remove${alias?cap_first},query${alias?cap_first}Base } from '../services/${actionName}';
+import {query${alias?cap_first},add${alias?cap_first},load${alias?cap_first},update${alias?cap_first},remove${alias?cap_first},query${alias?cap_first}Base } from '../../services/${projectName?cap_first}/${actionName}';
 
 export default {
   namespace: '${actionName}',

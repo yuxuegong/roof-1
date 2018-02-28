@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.alibaba.fastjson.annotation.JSONField;
 
-<#assign key = primaryKey[0] />
+<#assign key = primaryKeyFields[0] />
 /**
  * @author 模版生成 <br/>
  *         表名： ${tableName} <br/>

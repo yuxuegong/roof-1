@@ -11,7 +11,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
-<#assign key = primaryKey[0] />
+<#assign key = primaryKeyFields[0] />
 
 @connect(state => ({
   ${actionName}: state.${actionName},

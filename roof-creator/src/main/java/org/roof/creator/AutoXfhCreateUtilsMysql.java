@@ -837,7 +837,8 @@ public class AutoXfhCreateUtilsMysql {
 				key = CamelCaseUtils.toCamelCase(key);
 				keys2.add(key);
 			}
-			dataDomain.setPrimaryKey(keys2);
+			dataDomain.setPrimaryKey(keys);
+			dataDomain.setPrimaryKeyFields(keys2);
 			dataDomain.setFields(this.findColumnsFromTable(dataDomain.getTableName()));
 			dataDomain.setTableDisplay(this.findTableDisplayFromTable(dataDomain.getTableName()));
 			dataDomain.setRelations(this.findRelationFromTable(dataDomain.getTableName()));

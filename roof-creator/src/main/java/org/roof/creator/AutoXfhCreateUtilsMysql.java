@@ -232,6 +232,16 @@ public class AutoXfhCreateUtilsMysql {
 	private String createAntdModles(String tableName) throws Exception {
 		Domain domain = this.fillDomain(tableName);
 		Map<String, Object> root = this.objectParamsToMap(domain);
+		ArrayList<Map<String,Object>> fields = (ArrayList<Map<String, Object>>) root.get("fields");
+		Iterator<Map<String,Object>> iterator = fields.iterator();
+		while (iterator.hasNext()){
+			Map<String,Object> map = iterator.next();
+			if("state".equals(map.get("fieldName"))){
+				iterator.remove();
+				break;
+			}
+		}
+
 
 		String path = this.getExportPrefix() + "antd/" + CreatorConstants.PACKAGE_ANTD_MODLES + "/"
 				+ WordUtils.capitalize(domain.getAlias()).toLowerCase() + ".js";
@@ -821,7 +831,13 @@ public class AutoXfhCreateUtilsMysql {
 			dataDomain.setAlias(this.getAliasTable(tableName));
 			dataDomain.setPackagePath(this.getPackagePath());
 			dataDomain.setPackageArr(Arrays.asList(this.getPackagePath().split("\\.")));
-			dataDomain.setPrimaryKey(this.findPrimaryKeyFromTable(dataDomain.getTableName()));
+			List<String> keys = this.findPrimaryKeyFromTable(dataDomain.getTableName());
+			List<String> keys2 = new ArrayList<>(keys.size());
+			for (String key : keys){
+				key = CamelCaseUtils.toCamelCase(key);
+				keys2.add(key);
+			}
+			dataDomain.setPrimaryKey(keys2);
 			dataDomain.setFields(this.findColumnsFromTable(dataDomain.getTableName()));
 			dataDomain.setTableDisplay(this.findTableDisplayFromTable(dataDomain.getTableName()));
 			dataDomain.setRelations(this.findRelationFromTable(dataDomain.getTableName()));
@@ -845,17 +861,25 @@ public class AutoXfhCreateUtilsMysql {
 	 * @return
 	 */
 	public String getAliasTable(String tableName) {
-		String[] arr = tableName.split("_");
-		StringBuffer result = new StringBuffer();
-		for (int i = 1; i < arr.length; i++) {// 去掉表名的前缀
-			String temp = arr[i].toLowerCase();
-			if (i != 1) {
-				result.append(WordUtils.capitalize(temp));
-			} else {
-				result.append(temp);
+		if(tableName.indexOf("_") == -1){
+			return tableName;
+
+		}else {
+			String[] arr = tableName.split("_");
+			StringBuffer result = new StringBuffer();
+			for (int i = 1; i < arr.length; i++) {// 去掉表名的前缀
+				String temp = arr[i].toLowerCase();
+				if (i != 1) {
+					result.append(WordUtils.capitalize(temp));
+				} else {
+					result.append(temp);
+				}
 			}
+			return result.toString();
+
 		}
-		return result.toString();
+
+
 	}
 
 	/**
@@ -917,7 +941,7 @@ public class AutoXfhCreateUtilsMysql {
 	 *            表名
 	 */
 	private List findPrimaryKeyFromTable(String tableName) {
-		String sql = "SELECT k.column_name primaryKey FROM information_schema.table_constraints t "
+		String sql = "SELECT k.column_name as primaryKey FROM information_schema.table_constraints t "
 				+ "JOIN information_schema.key_column_usage k " + "USING (constraint_name,table_schema,table_name)"
 				+ "WHERE t.constraint_type='PRIMARY KEY' AND TABLE_SCHEMA = '"
 				+ PropertiesUtil.getPorpertyString("dbname") + "' AND t.table_name='" + tableName + "';";

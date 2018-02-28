@@ -1,5 +1,5 @@
 import { stringify } from 'qs';
-import request from '../utils/request';
+import request from '../../utils/request';
 
 export async function query${alias?cap_first}(params) {
   return request(`/api/${projectName}/${actionName}?<#noparse>${stringify(params)}`</#noparse>);

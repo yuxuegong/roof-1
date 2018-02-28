@@ -61,6 +61,10 @@ public class Domain {
 	 * 主键
 	 */
 	private List<String> primaryKey;
+	/**
+	 * 主键
+	 */
+	private List<String> primaryKeyFields;
 
 	/**
 	 * 属性列表
@@ -184,5 +188,13 @@ public class Domain {
 
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+
+	public List<String> getPrimaryKeyFields() {
+		return primaryKeyFields;
+	}
+
+	public void setPrimaryKeyFields(List<String> primaryKeyFields) {
+		this.primaryKeyFields = primaryKeyFields;
 	}
 }
